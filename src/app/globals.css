@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tokens semânticos em RGB (permitem opacidade: bg-primary/80) — docs/04-design-system.md §2.2 */
+@layer base {
+  :root {
+    --color-bg: 250 246 238; /* #FAF6EE baunilha clara — fundo global (mockup aprovado) */
+    --color-surface: 255 255 255; /* #FFFFFF */
+    --color-text: 46 56 50; /* #2E3832 grafite — 11.3:1 sobre o fundo */
+    --color-heading: 31 58 43; /* #1F3A2B verde floresta profundo — 11.5:1 */
+    --color-muted: 90 99 89; /* #5A6359 legendas — 5.6:1 (o #6B746D cairia p/ 4.35:1) */
+    --color-primary: 47 82 65; /* #2F5241 botão primário */
+    --color-primary-hover: 31 55 40; /* #1F3728 */
+    --color-accent: 240 125 43; /* #F07D2B laranja solar */
+    --color-border: 234 227 210; /* #EAE3D2 */
+
+    /* "only light": impede o modo escuro automático do navegador (Chrome/Edge Auto Dark) de inverter o site */
+    color-scheme: only light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* âncoras não ficam sob o header fixo (mais alto no mobile, com a faixa de seções) */
+    scroll-padding-top: 9rem; /* header (4.5rem) + faixa (3.5rem) + 1rem de respiro */
+  }
+
+  @media (min-width: 1280px) {
+    html {
+      scroll-padding-top: 5.5rem;
+    }
+  }
+
+  body {
+    @apply bg-bg font-sans text-base leading-relaxed text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-serif font-medium text-heading;
+    text-wrap: balance;
+  }
+
+  /* Destaque lúdico em títulos: a palavra em <em> vira lettering (Caveat) em terracota.
+     #C86D3B = 3.4:1 → AA só para texto grande; <em> aparece apenas em h1–h3 (≥ 24px).
+     Caveat tem altura-x pequena → compensamos o tamanho. */
+  :is(h1, h2, h3) em {
+    @apply font-handwriting font-semibold not-italic text-amandia-terracotta;
+    font-size: 1.22em;
+    line-height: 0.9;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-amandia-green;
+  }
+
+  ::selection {
+    @apply bg-amandia-butter text-amandia-green;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-sans text-eyebrow font-bold uppercase text-amandia-green;
+  }
+
+  /* Cartão editorial: branco, borda delicada e sombra ultrafina */
+  .card {
+    @apply rounded-2xl border border-linen-300 bg-surface shadow-hairline;
+  }
+
+  /* Fio ornamental usado entre capítulos */
+  .rule-gold {
+    @apply h-0.5 w-10 rounded-full bg-amandia-orange;
+  }
+
+  /* Faixa de seções do header no mobile/tablet: links diretos que rolam na horizontal */
+  /* Altura fixa (h-header-tabs) para o Hero descontar exatamente. A borda direita vem de um
+     espaçador ::after (gap + espaçador = padding do .container), porque o Safari ignora o
+     padding-right no fim de containers flex com rolagem. scroll-pl mantém o snap alinhado ao padding. */
+  .section-tabs {
+    @apply flex h-header-tabs snap-x items-center gap-2 overflow-x-auto scroll-smooth !pr-0 scroll-pl-5 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] after:h-px after:w-3 after:shrink-0 after:content-[''] md:scroll-pl-8 md:after:w-6 lg:scroll-pl-12 lg:after:w-10 [&::-webkit-scrollbar]:hidden;
+  }
+
+  /* Alvo de toque de 44px (min-h-11) */
+  .section-tab {
+    @apply flex min-h-11 shrink-0 snap-start items-center whitespace-nowrap rounded-full border border-linen-300 bg-surface/80 px-4 text-sm font-semibold text-heading transition-colors hover:border-amandia-orange hover:text-amandia-orange-ink focus-visible:border-amandia-green;
+  }
+
+  /* ===== Cardápio em caderno (components/sections/MenuBook) ===== */
+
+  /* Abas-índice no topo do caderno; rolam na horizontal no celular */
+  .menu-book__tabs {
+    @apply -mx-5 flex gap-1.5 overflow-x-auto px-5 [scrollbar-width:none] md:mx-16 md:px-6 [&::-webkit-scrollbar]:hidden;
+  }
+
+  .menu-book__tab {
+    @apply min-h-11 shrink-0 whitespace-nowrap rounded-t-2xl border border-b-0 border-linen-300 bg-linen-200 px-5 pt-1 font-handwriting text-2xl leading-none text-muted transition-colors hover:bg-amandia-orange-tint hover:text-amandia-orange-ink aria-[current=page]:bg-linen-50 aria-[current=page]:text-amandia-green;
+  }
+
+  .menu-book__stack {
+    @apply relative;
+  }
+
+  /* Folhas de baixo, levemente deslocadas: dá a espessura do bloco */
+  .menu-book__under {
+    @apply absolute inset-0 rounded-l-md rounded-r-3xl border border-linen-300 bg-linen-100;
+  }
+  .menu-book__under--1 {
+    @apply translate-x-1.5 translate-y-1.5;
+  }
+  .menu-book__under--2 {
+    @apply translate-x-3 translate-y-3 shadow-lift;
+  }
+
+  /* Folha pautada: linhas finas em terracota + linha de margem rosa, papel com vinheta suave */
+  .notebook-page {
+    --margin: 2.5rem;
+    @apply overflow-hidden rounded-l-md rounded-r-3xl border border-linen-300 bg-linen-50;
+    background-image:
+      linear-gradient(
+        to right,
+        transparent calc(var(--margin) - 1px),
+        rgb(243 131 159 / 0.35) calc(var(--margin) - 1px),
+        rgb(243 131 159 / 0.35) var(--margin),
+        transparent var(--margin)
+      ),
+      repeating-linear-gradient(to bottom, transparent 0 31px, rgb(158 84 51 / 0.07) 31px 32px),
+      radial-gradient(ellipse at center, transparent 60%, rgb(234 227 210 / 0.55));
+    background-position: 0 0, 0 1.5rem, 0 0;
+    box-shadow: inset 14px 0 18px -14px rgb(31 55 40 / 0.18);
+    transform-origin: left center;
+    backface-visibility: hidden;
+  }
+
+  .notebook-page__body {
+    @apply relative py-8 pl-14 pr-5 sm:pr-8 md:py-12 md:pl-24 md:pr-12;
+  }
+
+  .notebook-page__title {
+    @apply font-handwriting text-5xl font-bold leading-none text-amandia-green md:text-6xl;
+  }
+
+  .notebook-page__subtitle {
+    @apply mt-2 font-handwriting text-2xl leading-tight text-amandia-pink-ink;
+  }
+
+  /* Topo da página: título + polaroid lado a lado no tablet/desktop; empilhados no celular */
+  .notebook-page__top {
+    @apply relative z-10 flex flex-col md:flex-row md:items-start md:justify-between md:gap-10;
+  }
+
+  /* Polaroid "colada" com fita adesiva — no fluxo do layout, sem cobrir o texto */
+  .notebook-page__photo {
+    @apply relative mx-auto mt-8 w-40 shrink-0 -rotate-3 bg-surface p-2 pb-7 shadow-lift md:mx-0 md:mt-0 md:w-44 md:rotate-3;
+  }
+
+  .notebook-page__tape {
+    @apply absolute -top-3 left-1/2 z-10 h-6 w-20 -translate-x-1/2 -rotate-6 bg-amandia-butter/80 shadow-hairline;
+  }
+
+  /* Espiral: argolas na lombada, paradas enquanto a página gira */
+  .menu-book__spiral {
+    @apply pointer-events-none absolute -left-2.5 bottom-6 top-6 z-30 w-5;
+    background-image: radial-gradient(
+      circle,
+      rgb(var(--color-bg)) 0 3.5px,
+      rgb(158 84 51 / 0.55) 3.5px 5.5px,
+      transparent 6px
+    );
+    background-size: 100% 28px;
+  }
+
+  .menu-book__arrow {
+    @apply inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-linen-300 bg-surface/90 text-amandia-green shadow-hairline transition-colors hover:border-amandia-orange hover:bg-amandia-orange-tint disabled:pointer-events-none disabled:opacity-30 md:absolute md:top-1/2 md:z-30 md:-translate-y-1/2;
+  }
+
+  @media (min-width: 768px) {
+    .notebook-page {
+      --margin: 4.5rem;
+    }
+  }
+
+  /* Campo de formulário em pílula (Trabalhe Conosco) */
+  .form-field {
+    @apply w-full rounded-full border border-linen-300 bg-surface px-6 py-3.5 text-ink shadow-hairline outline-none transition-colors placeholder:text-muted focus:border-amandia-green focus:ring-2 focus:ring-amandia-green/15;
+  }
+}
+
+/* ===== Efeitos de rolagem — só existem com html[data-motion] (components/motion/ScrollEffects) ===== */
+@layer components {
+  /* Folhear de livro: cada card gira a partir da "lombada" (borda esquerda), em sequência */
+  :root[data-motion] [data-reveal] .page-flip {
+    opacity: 0;
+    transform: perspective(1400px) rotateY(-85deg);
+    transform-origin: left center;
+    backface-visibility: hidden;
+    transition:
+      transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      opacity 450ms ease;
+    transition-delay: calc(var(--i, 0) * 170ms);
+  }
+  :root[data-motion] [data-reveal][data-revealed] .page-flip {
+    opacity: 1;
+    transform: perspective(1400px) rotateY(0deg);
+  }
+
+  /* Momentos: as fotos começam afastadas e se juntam na grade conforme a seção entra em foco.
+     --p (0 → 1) vem do ScrollEffects; --dx/--dy/--rot definem de onde cada foto parte. */
+  :root[data-motion] [data-progress] .converge {
+    --q: calc(1 - var(--p, 1));
+    transform: translate(calc(var(--dx, 0px) * var(--q)), calc(var(--dy, 0px) * var(--q)))
+      rotate(calc(var(--rot, 0deg) * var(--q))) scale(calc(1 - 0.14 * var(--q)));
+    opacity: calc(1 - 0.6 * var(--q));
+    will-change: transform;
+  }
+}
+
+@layer utilities {
+  /* Complementa a família font-display-heavy (tailwind.config) com o peso de impacto */
+  /* (sem letter-spacing aqui: deixaria de respeitar as classes tracking-*) */
+  .font-display-heavy {
+    font-weight: 800;
+  }
+}
