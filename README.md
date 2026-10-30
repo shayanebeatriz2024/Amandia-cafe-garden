@@ -2,7 +2,7 @@
 
 > *Quando no caminho existe amor, o caminho é bom.*
 
-Site do Amandia Café Garden — café-jardim em Capão da Canoa, RS.
+Site do Amandia Café Garden: cafeteria em Capão da Canoa, RS.
 Next.js (App Router) · TypeScript · Tailwind CSS · Supabase · Vercel.
 
 ## Documentação

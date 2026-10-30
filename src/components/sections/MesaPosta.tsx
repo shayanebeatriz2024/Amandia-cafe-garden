@@ -9,7 +9,6 @@ import { CoffeeBranch } from '@/components/ui/coffee-illustrations';
 import { ChapterHeading } from '@/components/ui/ChapterHeading';
 import { PackageMark } from '@/components/ui/PackageMark';
 import { TrackedLink } from '@/components/ui/TrackedLink';
-import { SectionBadge } from '@/components/ui/SectionBadge';
 import { DoodleHeart, Sparkle } from '@/components/ui/doodles';
 import { ChatIcon } from '@/components/ui/icons';
 
@@ -118,23 +117,12 @@ export async function MesaPosta() {
                     style.featured && 'border-2 border-ceramic-brown',
                   )}
                 >
-                  {style.featured && (
-                    <SectionBadge tone="butter" className="absolute -top-3.5 left-6">
-                      Tábua de frios nobres
-                    </SectionBadge>
-                  )}
-
                   <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h3 className="leading-none">
-                        <span className="block font-display-heavy text-sm uppercase tracking-[0.18em] text-muted">
-                          Opção
-                        </span>
-                        <span className="mt-1 block font-display-heavy text-4xl uppercase text-amandia-green">
-                          {pkg.name}
-                        </span>
-                      </h3>
-                    </div>
+                    {/* "Opção" fica só para leitores de tela (sem repetir em todos os cards) */}
+                    <h3 className="font-display-heavy text-4xl uppercase leading-none text-amandia-green">
+                      <span className="sr-only">Opção </span>
+                      {pkg.name}
+                    </h3>
                     <PackageMark
                       variant={variantOf(pkg)}
                       className="transition-transform duration-500 group-hover:rotate-12"
@@ -172,7 +160,7 @@ export async function MesaPosta() {
                       className="w-full"
                       aria-label={`Reservar Mesa Posta Opção ${pkg.name} pelo WhatsApp`}
                     >
-                      <ChatIcon width={18} height={18} /> Reservar Mesa Posta
+                      <ChatIcon width={18} height={18} /> Reservar
                     </TrackedLink>
                   </div>
                 </article>
@@ -201,4 +189,4 @@ export async function MesaPosta() {
       </div>
     </section>
   );
-}
+}

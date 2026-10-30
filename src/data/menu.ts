@@ -200,7 +200,7 @@ const CATALOG: CatalogCategory[] = [
   {
     slug: 'cafes-especiais',
     name: 'Cafés',
-    description: '“simples_mente” um convite para desacelerar.',
+    description: '“simplesmente” um convite para desacelerar.',
     icon: 'coffee',
     section: 'cardapio',
     items: [

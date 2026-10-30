@@ -22,6 +22,17 @@ export function buildGoogleMapsDirectionsUrl(): string {
   return `https://www.google.com/maps/dir/?${params.toString()}`;
 }
 
+/**
+ * Avaliação no Google: com o Place ID abre direto a caixa "Escrever avaliação";
+ * sem ele, abre a ficha do café no Maps (onde fica o botão de avaliar).
+ */
+export function buildGoogleReviewUrl(): string {
+  if (siteConfig.googlePlaceId) {
+    return `https://search.google.com/local/writereview?placeid=${encodeURIComponent(siteConfig.googlePlaceId)}`;
+  }
+  return siteConfig.googleMapsUrl;
+}
+
 export function buildWazeUrl(): string {
   const { latitude, longitude } = siteConfig.geo;
   return `https://waze.com/ul?ll=${latitude},${longitude}&navigate=yes`;

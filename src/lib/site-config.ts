@@ -49,7 +49,8 @@ export const siteConfig = {
   instagramUrl: 'https://www.instagram.com/amandiacafegarden/',
 
   priceRange: 'R$ 20–40',
-  servesCuisine: ['Café especial', 'Focaccia', 'Brunch', 'Confeitaria', 'Padaria artesanal'],
+  // Sem "padaria": o perfil no Google é de cafeteria (Amandia Café Garden).
+  servesCuisine: ['Café especial', 'Focaccia', 'Brunch', 'Confeitaria'],
   acceptsReservations: true,
 
   highlights: [
@@ -105,9 +106,9 @@ export const siteConfig = {
     { href: '/#cardapio', label: 'Cardápio' },
     { href: '/#cestas', label: 'Cestas & Boxs' },
     { href: '/#mesa-posta', label: 'Mesa Posta' },
-    { href: '/#garden', label: 'Garden Café Bazar' },
+    { href: '/#garden', label: 'Garden Bazar' },
     { href: '/#como-chegar', label: 'Como chegar' },
-    { href: '/#trabalhe-conosco', label: 'Trabalhe Conosco' },
+    { href: '/#trabalhe-conosco', label: 'Faça parte da nossa equipe' },
   ],
 } as const;
 

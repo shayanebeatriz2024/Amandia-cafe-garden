@@ -105,6 +105,18 @@ export type MenuPublicRow = {
   sort_order: number;
 }
 
+export type JobApplicationRow = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  about: string;
+  strengths: string[];
+  resume_path: string | null;
+  consent_at: string;
+  created_at: string;
+}
+
 type Table<Row> = {
   Row: Row;
   Insert: Partial<Row>;
@@ -120,6 +132,7 @@ export type Database = {
       events: Table<EventRow>;
       opening_hours: Table<OpeningHoursRow>;
       special_hours: Table<SpecialHoursRow>;
+      job_applications: Table<JobApplicationRow>;
     };
     Views: {
       menu_public: { Row: MenuPublicRow; Relationships: [] };

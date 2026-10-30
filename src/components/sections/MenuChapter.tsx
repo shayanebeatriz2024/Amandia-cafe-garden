@@ -14,10 +14,10 @@ const PAGE_PHOTOS: Record<string, Photo> = {
   'graos-para-levar': photos.guriaCafesEspeciais,
 };
 
-// Ordem das páginas do caderno: da xícara → forno → doces → bebidas → grãos para levar.
-const PAGE_ORDER = ['cafes-especiais', 'sanduiches-focaccias', 'doces', 'bebidas', 'graos-para-levar'];
+// Ordem das páginas do livro: cafés → bebidas → salgados → doces → grãos para levar.
+const PAGE_ORDER = ['cafes-especiais', 'bebidas', 'sanduiches-focaccias', 'doces', 'graos-para-levar'];
 
-/** Cardápio Artesanal & Vitrine — um caderno de receitas folheável. */
+/** Cardápio Artesanal & Vitrine — um livro de receitas folheável. */
 export async function MenuChapter() {
   const [cardapio, vitrine] = await Promise.all([getMenuSection('cardapio'), getMenuSection('vitrine')]);
 

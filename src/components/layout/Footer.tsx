@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { Lock } from 'lucide-react';
 import { siteConfig } from '@/lib/site-config';
-import { buildGoogleMapsDirectionsUrl, buildPhoneUrl, buildWazeUrl } from '@/lib/links';
+import { buildGoogleMapsDirectionsUrl, buildGoogleReviewUrl, buildPhoneUrl, buildWazeUrl } from '@/lib/links';
 import { groupHoursForDisplay, type HoursRow } from '@/lib/hours-format';
 import { TrackedLink } from '@/components/ui/TrackedLink';
+import { buttonClasses } from '@/components/ui/button-styles';
 import { CoffeeBranch } from '@/components/ui/coffee-illustrations';
-import { InstagramIcon } from '@/components/ui/icons';
+import { InstagramIcon, StarIcon } from '@/components/ui/icons';
 
 type FooterProps = {
   hours: readonly HoursRow[];
@@ -68,6 +69,16 @@ export function Footer({ hours }: FooterProps) {
                 Waze
               </TrackedLink>
             </div>
+            <a
+              href={buildGoogleReviewUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Avaliar o Amandia no Google (abre em nova aba)"
+              className={buttonClasses('ghost', 'mt-3 font-medium')}
+            >
+              <StarIcon width={16} height={16} className="text-amandia-orange" />
+              Avalie-nos no Google
+            </a>
           </div>
 
           <div>

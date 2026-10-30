@@ -1,10 +1,6 @@
-import Image from 'next/image';
-import { siteConfig } from '@/lib/site-config';
-import { photos } from '@/lib/images';
 import { buildGoogleMapsDirectionsUrl, buildWhatsAppUrl } from '@/lib/links';
 import { TrackedLink } from '@/components/ui/TrackedLink';
 import { ChatIcon, MapPinIcon } from '@/components/ui/icons';
-import { Sparkle, SunBurst } from '@/components/ui/doodles';
 import { HeroVideo } from './HeroVideo';
 
 /**
@@ -45,8 +41,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-8 max-w-prose text-lg leading-relaxed text-amandia-cream">
-            <strong className="font-display-heavy text-amandia-cream">{siteConfig.positioning}</strong>{' '}
-            Um café jardim para estar, celebrar e desacelerar, a poucos passos da Praia de Navegantes.
+            <strong className="font-display-heavy text-amandia-cream">
+              Cafés, Focaccias, Brownies e Garden! Lugar de gente boa.
+            </strong>
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
@@ -68,21 +65,6 @@ export function Hero() {
             </TrackedLink>
           </div>
         </div>
-      </div>
-
-      {/* Selo "Aconchego" com o sol atrás — integrado à composição, à direita */}
-      <div className="absolute right-5 top-6 z-10 md:right-10 md:top-10 lg:right-[8%] lg:top-[14%]">
-        <SunBurst className="absolute -left-6 -top-5 size-20 text-amandia-orange motion-safe:animate-[spin_40s_linear_infinite] md:size-28" />
-        <div className="relative size-24 rotate-6 overflow-hidden rounded-full border-2 border-ceramic-brown bg-surface p-2 shadow-lift md:size-36">
-          <Image
-            src={photos.aconchego.src}
-            alt={photos.aconchego.alt}
-            quality={90}
-            sizes="144px"
-            className="size-full rounded-full object-cover"
-          />
-        </div>
-        <Sparkle className="absolute -bottom-2 -right-3 size-6 text-amandia-pink" />
       </div>
     </section>
   );

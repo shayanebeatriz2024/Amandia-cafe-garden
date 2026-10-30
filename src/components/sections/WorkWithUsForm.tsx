@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { buildWhatsAppUrl } from '@/lib/links';
 import { trackEvent } from '@/lib/analytics';
+import { RESUME_MAX_BYTES, STRENGTHS, strengthLabel } from '@/lib/careers';
 import { buttonClasses } from '@/components/ui/button-styles';
 import { ChatIcon } from '@/components/ui/icons';
 
@@ -14,30 +15,34 @@ type Candidate = {
   email: string;
   phone: string;
   about: string;
+  strengths: string[];
   resumeName: string | null;
 };
 
 /** Mensagem no mesmo formato das reservas: saudação + dados + 🌿. */
-function applicationMessage({ name, email, phone, about, resumeName }: Candidate): string {
+function applicationMessage({ name, email, phone, about, strengths, resumeName }: Candidate): string {
   return [
     'Olá! Gostaria de trabalhar no Amandia. 🌿',
     '',
     `*Nome:* ${name}`,
     `*E-mail:* ${email}`,
     `*Celular:* ${phone}`,
+    strengths.length > 0 && `*Pontos fortes:* ${strengths.map(strengthLabel).join(', ')}`,
     `*Sobre mim:* ${about}`,
     resumeName && `*Currículo:* ${resumeName} (vou anexar nesta conversa)`,
   ]
-    .filter((line) => line !== null)
+    .filter((line): line is string => typeof line === 'string')
     .join('\n');
 }
 
 /**
- * Cadastro do Trabalhe Conosco. O link wa.me só leva texto, então o currículo
- * escolhido aparece na mensagem e o candidato o anexa na própria conversa.
+ * Cadastro do "Faça parte da nossa equipe". A candidatura é arquivada na pastinha
+ * do /admin (POST /api/candidaturas, com o currículo) e a conversa abre no WhatsApp
+ * do café. O link wa.me só leva texto, então o candidato também anexa o arquivo lá.
  */
 export function WorkWithUsForm() {
   const [resumeName, setResumeName] = useState<string | null>(null);
+  const [resumeError, setResumeError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -49,13 +54,27 @@ export function WorkWithUsForm() {
         email: String(data.get('email')).trim(),
         phone: String(data.get('phone')).trim(),
         about: String(data.get('about')).trim(),
+        strengths: data.getAll('strengths').map(String),
         resumeName,
       }),
     );
 
-    trackEvent('click_whatsapp', { placement: 'careers', item_name: 'Trabalhe Conosco', link_url: href });
+    // Arquiva sem esperar: o WhatsApp precisa abrir no mesmo clique (bloqueador de pop-up).
+    fetch('/api/candidaturas', { method: 'POST', body: data }).catch((error: unknown) => console.error(error));
+
+    trackEvent('click_whatsapp', { placement: 'careers', item_name: 'Faça parte da nossa equipe', link_url: href });
     window.open(href, '_blank', 'noopener,noreferrer');
     setSent(true);
+  }
+
+  function handleResumeChange(file: File | undefined) {
+    if (file && file.size > RESUME_MAX_BYTES) {
+      setResumeName(null);
+      setResumeError('Arquivo muito grande. Envie um currículo de até 4 MB.');
+      return;
+    }
+    setResumeError(null);
+    setResumeName(file?.name ?? null);
   }
 
   return (
@@ -107,10 +126,24 @@ export function WorkWithUsForm() {
         id="careers-about"
         name="about"
         rows={4}
-        placeholder="Fale um pouco sobre você (seus pontos fortes)"
+        placeholder="Fale um pouco sobre você"
         required
         className="form-field resize-y rounded-3xl"
       />
+
+      <fieldset className="rounded-3xl border border-linen-300 bg-surface px-6 py-5 shadow-hairline">
+        <legend className="px-2 text-sm font-semibold text-heading">Seus pontos fortes</legend>
+        <div className="mt-1 flex flex-wrap gap-2">
+          {STRENGTHS.map((strength) => (
+            <label key={strength.key} className="cursor-pointer">
+              <input type="checkbox" name="strengths" value={strength.key} className="peer sr-only" />
+              <span className="inline-flex min-h-9 items-center rounded-full border border-linen-300 bg-linen-100 px-4 text-sm text-ink transition-colors hover:border-amandia-orange peer-checked:border-amandia-green peer-checked:bg-amandia-green peer-checked:text-amandia-cream peer-focus-visible:ring-2 peer-focus-visible:ring-amandia-green/30">
+                {strength.label}
+              </span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
       <label
         htmlFor="careers-resume"
@@ -120,10 +153,9 @@ export function WorkWithUsForm() {
           <UploadIcon />
           {resumeName ?? 'Adicione seu currículo aqui (PDF ou Word)'}
         </span>
-        <span className="text-sm text-muted">
-          {resumeName
-            ? 'Clique para trocar o arquivo.'
-            : 'Opcional. Você anexa o arquivo na conversa do WhatsApp.'}
+        <span className={resumeError ? 'text-sm text-amandia-pink-ink' : 'text-sm text-muted'}>
+          {resumeError ??
+            (resumeName ? 'Clique para trocar o arquivo.' : 'Opcional. PDF ou Word de até 4 MB.')}
         </span>
         <input
           id="careers-resume"
@@ -131,8 +163,20 @@ export function WorkWithUsForm() {
           type="file"
           accept={RESUME_ACCEPT}
           className="sr-only"
-          onChange={(e) => setResumeName(e.currentTarget.files?.[0]?.name ?? null)}
+          onChange={(e) => {
+            const file = e.currentTarget.files?.[0];
+            handleResumeChange(file);
+            if (file && file.size > RESUME_MAX_BYTES) e.currentTarget.value = '';
+          }}
         />
+      </label>
+
+      {/* Campo-isca para robôs (invisível para pessoas e leitores de tela) */}
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+
+      <label className="flex items-start gap-3 px-2 text-sm leading-relaxed text-muted">
+        <input type="checkbox" name="consent" required className="mt-1 size-4 shrink-0 accent-amandia-green" />
+        Autorizo o Amandia Café Garden a guardar meus dados e meu currículo para processos seletivos.
       </label>
 
       <button type="submit" className={buttonClasses('primary', 'mt-2 w-full')}>

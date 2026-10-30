@@ -36,7 +36,7 @@ export function WorkWithUs() {
           align="center"
           title={
             <>
-              Trabalhe <em>Conosco</em>
+              Faça parte da <em>nossa equipe</em>
             </>
           }
           intro="Gosta de café, de gente e de fazer tudo com calma e capricho? Conte um pouco sobre você."

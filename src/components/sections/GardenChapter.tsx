@@ -1,8 +1,9 @@
 import type { ComponentType, CSSProperties, SVGProps } from 'react';
 import Image from 'next/image';
 import { siteConfig, type AmenityKey } from '@/lib/site-config';
-import { illustrations, photos } from '@/lib/images';
+import { photos } from '@/lib/images';
 import { GardenVideo } from './GardenVideo';
+import { EightPointStar, GardenBazarLettering } from './GardenBazarLettering';
 import { GardenBazarSignup } from './GardenBazarSignup';
 import { CoffeeBranch } from '@/components/ui/coffee-illustrations';
 import { ChapterHeading } from '@/components/ui/ChapterHeading';
@@ -28,25 +29,46 @@ export function GardenChapter() {
       {/* Marca d'água: ramo oficial na transição entre o Hero e o Garden */}
       <CoffeeBranch className="pointer-events-none absolute -top-16 right-8 hidden w-16 rotate-[28deg] text-ceramic-brown/40 md:block xl:right-16 xl:w-20" />
       <div className="container relative">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
           <ChapterHeading
             id="garden-titulo"
             eyebrow="Garden Café Bazar"
-            icon={illustrations.gardenOmbrelone}
-            badge={{ label: 'Ao ar livre', tone: 'butter' }}
             note="pet friendly"
             title={
               <>
-                Um jardim para <em>desacelerar</em>
+                <span className="sr-only">Garden Bazar</span>
+                <GardenBazarLettering className="w-full max-w-[22rem] text-amandia-green lg:max-w-[26rem]" />
               </>
             }
             className="lg:col-span-7"
           />
-          <p className="text-lg leading-relaxed lg:col-span-5">
-            Mesinhas de madeira entre as plantas, luz natural e o tempo que cada café merece. O Garden
-            é ao ar livre e acolhe todas as pessoas, e o seu pet também. Na entrada, balanços de macramé e
-            varal de luzes; lá dentro, um salão aconchegante.
-          </p>
+
+          {/* Card editorial "Compre Local" — recria o post oficial do Bazar */}
+          <div className="lg:col-span-5">
+            <div className="relative bg-transparent px-8 pb-8 pt-10 text-center">
+              <blockquote className="font-light text-amandia-green">
+                <p className="mx-auto grid w-fit grid-cols-[auto_auto_auto] items-center gap-x-3 text-2xl leading-tight sm:text-[1.7rem]">
+                  <span className="text-left">pequenos</span>
+                  <EightPointStar className="row-span-2 size-12 text-amandia-pink" />
+                  <span className="text-right">negócios,</span>
+                  <span className="text-left">grandes</span>
+                  <span className="text-right">sonhos.</span>
+                </p>
+                <p className="mt-6 text-xl leading-snug sm:text-[1.4rem]">
+                  compre local e fortaleça
+                  <br />a economia criativa.
+                </p>
+              </blockquote>
+              <EightPointStar className="absolute bottom-24 left-5 size-5 text-amandia-pink" />
+              <EightPointStar className="absolute bottom-20 right-6 size-9 text-amandia-pink" />
+              <p className="mt-12 rounded-full bg-moss-700 px-6 py-2.5 font-serif text-lg text-clay-300">
+                café, focaccia &amp; marcas locais
+              </p>
+            </div>
+            <p className="mt-6 text-center text-lg leading-relaxed text-muted">
+              uma curadoria afetiva de marcas, arte, comidinhas e encontros reais
+            </p>
+          </div>
         </div>
 
         {/* Vídeo do Garden em arco + selo da imprensa como apoio textual */}
@@ -79,6 +101,25 @@ export function GardenChapter() {
               Destaque na imprensa · <span className="font-semibold text-amandia-orange-ink">Revista</span>
             </figcaption>
           </figure>
+        </div>
+
+        {/* Mesas do espaço, onde o Bazar acontece */}
+        <h3 className="mt-14 flex items-center justify-center gap-3 text-center font-handwriting text-3xl font-semibold text-amandia-green">
+          <EightPointStar className="size-5 text-amandia-pink" />
+          Fotos reais do Bazar
+          <EightPointStar className="size-5 text-amandia-pink" />
+        </h3>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          {[photos.gardenMesaBolo, photos.gardenOmbrelones].map((photo) => (
+            <Image
+              key={photo.alt}
+              src={photo.src}
+              alt={photo.alt}
+              placeholder="blur"
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className="aspect-[4/3] w-full rounded-[2rem] border border-ceramic-brown/30 object-cover shadow-lift"
+            />
+          ))}
         </div>
 
         {/* Pausa em lettering afetivo */}

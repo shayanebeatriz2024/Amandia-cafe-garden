@@ -37,7 +37,7 @@ const PAGE_DOODLES: Record<string, typeof CoffeeMug> = {
 };
 
 /**
- * Cardápio em caderno: uma página por categoria, folheada com animação 3D
+ * Cardápio em livro de capa dura: uma página por categoria, folheada com animação 3D
  * (a página gira pela lombada à esquerda). Setas laterais, abas-índice, teclado ←/→
  * e deslize no celular. Todas as páginas ficam no HTML (indexáveis); as fora de vista
  * ficam invisíveis e inertes.
@@ -127,7 +127,7 @@ export function MenuBook({ pages }: { pages: MenuPage[] }) {
 
   return (
     <div ref={bookRef} className="mt-12 scroll-mt-36 xl:scroll-mt-24" onKeyDown={onKeyDown}>
-      {/* Abas-índice do caderno */}
+      {/* Abas-índice do livro (marcadores de capítulo) */}
       <div className="menu-book__tabs" aria-label="Páginas do cardápio" role="group">
         {pages.map((page, i) => (
           <button
@@ -177,8 +177,8 @@ export function MenuBook({ pages }: { pages: MenuPage[] }) {
             );
           })}
 
-          {/* Espiral do caderno: fica parada enquanto as páginas giram */}
-          <span className="menu-book__spiral" aria-hidden="true" />
+          {/* Lombada do livro: fica parada enquanto as páginas giram */}
+          <span className="menu-book__spine" aria-hidden="true" />
         </div>
       </div>
 

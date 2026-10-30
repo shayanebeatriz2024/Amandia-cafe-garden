@@ -109,7 +109,7 @@
     @apply flex min-h-11 shrink-0 snap-start items-center whitespace-nowrap rounded-full border border-linen-300 bg-surface/80 px-4 text-sm font-semibold text-heading transition-colors hover:border-amandia-orange hover:text-amandia-orange-ink focus-visible:border-amandia-green;
   }
 
-  /* ===== Cardápio em caderno (components/sections/MenuBook) ===== */
+  /* ===== Cardápio em livro (components/sections/MenuBook) ===== */
 
   /* Abas-índice no topo do caderno; rolam na horizontal no celular */
   .menu-book__tabs {
@@ -121,42 +121,39 @@
   }
 
   .menu-book__stack {
-    @apply relative;
+    @apply relative mt-3;
   }
 
-  /* Folhas de baixo, levemente deslocadas: dá a espessura do bloco */
+  /* Capa dura verde-musgo atrás do miolo, um pouco maior que as páginas */
+  .menu-book__stack::before {
+    content: '';
+    @apply absolute -bottom-5 -left-3 -right-5 -top-3 rounded-r-2xl rounded-l-lg bg-moss-800 shadow-lift;
+  }
+
+  /* Folhas de baixo, levemente deslocadas: a espessura do miolo, com filetes de papel na borda */
   .menu-book__under {
-    @apply absolute inset-0 rounded-l-md rounded-r-3xl border border-linen-300 bg-linen-100;
+    @apply absolute inset-0 rounded-l-sm rounded-r-xl border border-linen-300 bg-linen-100;
   }
   .menu-book__under--1 {
-    @apply translate-x-1.5 translate-y-1.5;
+    @apply translate-x-1 translate-y-1;
   }
   .menu-book__under--2 {
-    @apply translate-x-3 translate-y-3 shadow-lift;
+    @apply translate-x-2 translate-y-2 bg-linen-200;
   }
 
-  /* Folha pautada: linhas finas em terracota + linha de margem rosa, papel com vinheta suave */
+  /* Página de livro: papel liso, sombra da costura junto à lombada e vinheta suave */
   .notebook-page {
-    --margin: 2.5rem;
-    @apply overflow-hidden rounded-l-md rounded-r-3xl border border-linen-300 bg-linen-50;
+    @apply overflow-hidden rounded-l-sm rounded-r-xl border border-linen-300 bg-linen-50;
     background-image:
-      linear-gradient(
-        to right,
-        transparent calc(var(--margin) - 1px),
-        rgb(243 131 159 / 0.35) calc(var(--margin) - 1px),
-        rgb(243 131 159 / 0.35) var(--margin),
-        transparent var(--margin)
-      ),
-      repeating-linear-gradient(to bottom, transparent 0 31px, rgb(158 84 51 / 0.07) 31px 32px),
+      linear-gradient(to right, rgb(31 55 40 / 0.14), rgb(31 55 40 / 0.04) 1.75rem, transparent 3.5rem),
       radial-gradient(ellipse at center, transparent 60%, rgb(234 227 210 / 0.55));
-    background-position: 0 0, 0 1.5rem, 0 0;
-    box-shadow: inset 14px 0 18px -14px rgb(31 55 40 / 0.18);
+    box-shadow: inset -1px 0 0 rgb(158 84 51 / 0.08);
     transform-origin: left center;
     backface-visibility: hidden;
   }
 
   .notebook-page__body {
-    @apply relative py-8 pl-14 pr-5 sm:pr-8 md:py-12 md:pl-24 md:pr-12;
+    @apply relative py-8 pl-10 pr-5 sm:pl-12 sm:pr-8 md:py-12 md:pl-20 md:pr-12;
   }
 
   .notebook-page__title {
@@ -181,26 +178,16 @@
     @apply absolute -top-3 left-1/2 z-10 h-6 w-20 -translate-x-1/2 -rotate-6 bg-amandia-butter/80 shadow-hairline;
   }
 
-  /* Espiral: argolas na lombada, paradas enquanto a página gira */
-  .menu-book__spiral {
-    @apply pointer-events-none absolute -left-2.5 bottom-6 top-6 z-30 w-5;
-    background-image: radial-gradient(
-      circle,
-      rgb(var(--color-bg)) 0 3.5px,
-      rgb(158 84 51 / 0.55) 3.5px 5.5px,
-      transparent 6px
-    );
-    background-size: 100% 28px;
+  /* Lombada: faixa da capa com relevo e dois nervos dourados, parada enquanto a página gira */
+  .menu-book__spine {
+    @apply pointer-events-none absolute -bottom-5 -left-3 -top-3 z-30 w-5 rounded-l-lg bg-moss-900;
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.12), transparent 40%, rgb(0 0 0 / 0.25)),
+      linear-gradient(to bottom, transparent 12%, rgb(194 142 88 / 0.7) 12% calc(12% + 2px), transparent calc(12% + 2px) 88%, rgb(194 142 88 / 0.7) 88% calc(88% + 2px), transparent calc(88% + 2px));
   }
 
   .menu-book__arrow {
     @apply inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-linen-300 bg-surface/90 text-amandia-green shadow-hairline transition-colors hover:border-amandia-orange hover:bg-amandia-orange-tint disabled:pointer-events-none disabled:opacity-30 md:absolute md:top-1/2 md:z-30 md:-translate-y-1/2;
-  }
-
-  @media (min-width: 768px) {
-    .notebook-page {
-      --margin: 4.5rem;
-    }
   }
 
   /* Campo de formulário em pílula (Trabalhe Conosco) */
