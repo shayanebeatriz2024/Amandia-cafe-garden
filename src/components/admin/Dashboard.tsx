@@ -133,7 +133,7 @@ function DashboardContent({ data }: { data: AdminMetrics }) {
         <VisitsChart data={daily} />
       </Panel>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Panel title="Origem das visitas" subtitle={`${numberFormat.format(totals.sessions)} visitas no período`}>
           {sources.length === 0 ? (
             <EmptyNote>Ainda não há visitas registradas neste período.</EmptyNote>
@@ -254,7 +254,7 @@ function DashboardSkeleton() {
         <div className={cn(bar, 'h-4 w-32')} />
         <div className={cn(bar, 'mt-8 h-64')} />
       </div>
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div className={cn(SURFACE, 'h-72')} />
         <div className={cn(SURFACE, 'h-72')} />
       </div>

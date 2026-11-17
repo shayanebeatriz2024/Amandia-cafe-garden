@@ -5,21 +5,19 @@ import { buildGoogleMapsDirectionsUrl, buildGoogleReviewUrl, buildPhoneUrl, buil
 import { groupHoursForDisplay, type HoursRow } from '@/lib/hours-format';
 import { TrackedLink } from '@/components/ui/TrackedLink';
 import { buttonClasses } from '@/components/ui/button-styles';
-import { CoffeeBranch } from '@/components/ui/coffee-illustrations';
 import { InstagramIcon, StarIcon } from '@/components/ui/icons';
 
 type FooterProps = {
   hours: readonly HoursRow[];
 };
 
-/** Epílogo: claro, com a frase-guia fechando a narrativa. */
+/** Epílogo no verde sálvia oficial da marca, com a frase-guia fechando a narrativa. */
 export function Footer({ hours }: FooterProps) {
   const { address } = siteConfig;
   const groups = groupHoursForDisplay(hours);
 
   return (
-    <footer className="relative overflow-hidden border-t border-linen-300 bg-bg">
-      <CoffeeBranch className="pointer-events-none absolute -top-6 right-6 hidden w-20 rotate-[14deg] text-ceramic-brown/25 md:block" />
+    <footer className="relative overflow-hidden border-t border-white/10 bg-bg">
 
       <div className="container py-section">
         <h2 className="max-w-3xl text-h2">
@@ -29,7 +27,7 @@ export function Footer({ hours }: FooterProps) {
 
         <div className="mt-14 grid gap-12 text-sm md:grid-cols-4">
           <div>
-            <p className="font-handwriting text-4xl font-bold leading-none text-amandia-green">{siteConfig.shortName}</p>
+            <p className="font-handwriting text-4xl font-bold leading-none text-heading">{siteConfig.shortName}</p>
             <p className="font-display-heavy text-[0.6rem] uppercase tracking-[0.3em] text-amandia-orange-ink">Café Garden</p>
             <p className="mt-4 leading-relaxed">{siteConfig.positioning}</p>
           </div>
@@ -96,10 +94,10 @@ export function Footer({ hours }: FooterProps) {
 
           <div>
             <h2 className="eyebrow mb-4">Capítulos</h2>
-            <ul className="space-y-2">
+            <ul className="md:space-y-2">
               {siteConfig.nav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="hover:text-heading hover:underline">
+                  <Link href={item.href} className="inline-flex min-h-11 items-center hover:text-heading hover:underline md:min-h-0">
                     {item.label}
                   </Link>
                 </li>
@@ -128,7 +126,7 @@ export function Footer({ hours }: FooterProps) {
             href="/admin"
             prefetch={false}
             rel="nofollow"
-            className="inline-flex items-center gap-1 text-muted/60 transition-colors hover:text-bark-700"
+            className="inline-flex min-h-11 items-center gap-1 text-muted/70 transition-colors hover:text-heading"
           >
             <Lock className="size-3" aria-hidden="true" />
             Acesso restrito

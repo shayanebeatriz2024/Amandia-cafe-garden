@@ -67,12 +67,16 @@ const config: Config = {
           vanilla: '#FAF6EE', // fundo global do site (baunilha clara)
           terracotta: '#C86D3B', // destaque em títulos — só texto grande (3.4:1)
           white: '#FFFFFF',
+          offwhite: '#F8F5F0', // texto claro sobre o verde sálvia
         },
         // Marrom cerâmica — terracota queimada dos vasos do jardim. Molduras de arcos/círculos.
         'ceramic-brown': '#9E5433',
         'ceramic-border': '#A65E3E',
         // Cores da identidade visual (stories e cardápios do Amandia)
         brand: {
+          // Verde musgo/sálvia oficial — amostrado do fundo do logotipo. Texto claro sobre ele: branco = 5.2:1, linen-100 = 4.8:1.
+          sage: '#577365',
+          'sage-deep': '#465D51', // superfícies / hover sobre o sage
           teal: '#3C6A63',
           orange: '#E0943F',
           blush: '#F6B9B2',
@@ -97,6 +101,8 @@ const config: Config = {
         sans: ['var(--font-sans)', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
         // Caveat — lettering expressivo ("Garden Bazar", "dia 26")
         handwriting: ['var(--font-hand)', 'Segoe Print', 'Comic Sans MS', 'cursive'],
+        // Shadows Into Light — anotações manuscritas do cardápio impresso
+        note: ['var(--font-note)', 'Segoe Print', 'cursive'],
         // Plus Jakarta Sans 800 — chamadas de impacto ("MINI FESTIVAL DE FOCACCIA");
         // o peso vem da utility .font-display-heavy em globals.css
         'display-heavy': ['var(--font-sans)', 'system-ui', 'sans-serif'],

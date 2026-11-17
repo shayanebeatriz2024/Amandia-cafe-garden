@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Caveat, Lora, Plus_Jakarta_Sans } from 'next/font/google';
+import { Caveat, Lora, Plus_Jakarta_Sans, Shadows_Into_Light } from 'next/font/google';
 import { siteConfig } from '@/lib/site-config';
 import { getBusinessHours } from '@/lib/data/hours';
 import { buildLocalBusinessJsonLd, buildWebSiteJsonLd } from '@/lib/schema';
@@ -29,6 +29,14 @@ const sans = Plus_Jakarta_Sans({
 const hand = Caveat({
   subsets: ['latin'],
   variable: '--font-hand',
+  display: 'swap',
+});
+
+// Anotações à mão do cardápio impresso ("um clássico da casa", "bom demais"…)
+const note = Shadows_Into_Light({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-note',
   display: 'swap',
 });
 
@@ -89,7 +97,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const hours = await getBusinessHours();
 
   return (
-    <html lang="pt-BR" className={`${serif.variable} ${sans.variable} ${hand.variable}`}>
+    <html lang="pt-BR" className={`${serif.variable} ${sans.variable} ${hand.variable} ${note.variable}`}>
       <body>
         <a
           href="#conteudo"

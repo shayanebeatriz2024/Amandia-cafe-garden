@@ -111,7 +111,7 @@ export function GardenVideo({ src, poster, label, className }: GardenVideoProps)
       </video>
 
       {/* Badge botânico com vapor de café */}
-      <figcaption className="absolute bottom-5 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-amandia-butter px-3 py-1 font-handwriting text-xl font-semibold text-amandia-green shadow-hairline">
+      <figcaption className="theme-base absolute bottom-5 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-amandia-butter px-3 py-1 font-handwriting text-xl font-semibold text-heading shadow-hairline">
         <SteamCup />
         Café quentinho no Garden
       </figcaption>
@@ -121,7 +121,7 @@ export function GardenVideo({ src, poster, label, className }: GardenVideoProps)
         onClick={toggleSound}
         aria-pressed={!muted}
         aria-label={muted ? 'Ativar o som do vídeo' : 'Silenciar o vídeo'}
-        className="absolute bottom-[4.25rem] right-4 flex items-center gap-1.5 rounded-full border border-ceramic-brown/30 bg-amandia-cream/90 px-3 py-1.5 text-xs font-medium text-amandia-green backdrop-blur-sm transition-all hover:bg-amandia-cream"
+        className="theme-base absolute bottom-[4.25rem] right-4 flex before:absolute before:-inset-2 before:content-[''] items-center gap-1.5 rounded-full border border-ceramic-brown/30 bg-amandia-cream/90 px-3 py-1.5 text-xs font-medium text-heading backdrop-blur-sm transition-all hover:bg-amandia-cream"
       >
         {muted ? <SoundOffIcon /> : <SoundOnIcon />}
         {muted ? 'Ativar som' : 'Silenciar'}

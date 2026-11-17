@@ -25,7 +25,7 @@ export function GardenBazarSignup() {
         <h3 id="bazar-cadastro-titulo" className="text-h2">
           Quero participar da <em>Garden</em>
         </h3>
-        <p className="mt-3 font-handwriting text-3xl font-semibold text-amandia-green">
+        <p className="mt-3 font-handwriting text-3xl font-semibold text-heading">
           Nos conte aqui embaixo
         </p>
       </header>

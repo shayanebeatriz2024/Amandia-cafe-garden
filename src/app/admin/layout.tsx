@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 
 /** Área interna: sem cabeçalho/rodapé do site (ver PublicOnly no layout raiz). */
 export default function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <div className="min-h-svh bg-stone-50 text-stone-700">{children}</div>;
+  return <div className="theme-base min-h-svh bg-stone-50 text-stone-700">{children}</div>;
 }

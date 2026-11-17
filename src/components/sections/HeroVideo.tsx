@@ -15,7 +15,7 @@ type HeroVideoProps = {
 
 function SoundIcon({ on }: { on: boolean }) {
   return (
-    <svg viewBox="0 0 24 24" width={14} height={14} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M11 5 6 9H2v6h4l5 4V5Z" />
       {on ? (
         <>
@@ -56,6 +56,9 @@ export function HeroVideo({ src, poster, className, label, soundToggle, soundBut
   useEffect(() => {
     const v = ref.current;
     if (!ready || !v) return;
+    // Safari iOS só libera autoplay com o vídeo mudo: garante a propriedade antes de tocar.
+    v.muted = true;
+    v.defaultMuted = true;
     v.load();
     v.play().catch(() => undefined);
   }, [ready]);
@@ -64,8 +67,9 @@ export function HeroVideo({ src, poster, className, label, soundToggle, soundBut
     const v = ref.current;
     if (!v) return;
     if (!ready) setReady(true);
-    v.muted = !v.muted;
-    setMuted(v.muted);
+    const nextMuted = !muted;
+    v.muted = nextMuted;
+    setMuted(nextMuted);
     if (v.paused) v.play().catch(() => undefined);
   };
 
@@ -75,7 +79,7 @@ export function HeroVideo({ src, poster, className, label, soundToggle, soundBut
         ref={ref}
         className={className}
         poster={poster}
-        autoPlay={ready}
+        autoPlay
         loop
         muted
         playsInline
@@ -95,7 +99,7 @@ export function HeroVideo({ src, poster, className, label, soundToggle, soundBut
           aria-label={muted ? 'Ativar o som do vídeo' : 'Silenciar o vídeo'}
           className={
             soundButtonClassName ??
-            'flex items-center gap-1.5 rounded-full border border-ceramic-brown/30 bg-amandia-cream/90 px-3 py-1.5 text-xs font-medium text-amandia-green backdrop-blur-sm transition-all hover:bg-amandia-cream'
+            'inline-flex min-h-11 min-w-11 items-center gap-2 rounded-full border border-stone-900/15 bg-amandia-cream/95 px-4 text-sm font-medium text-stone-900 shadow-md backdrop-blur-sm transition-colors hover:bg-white'
           }
         >
           <SoundIcon on={!muted} />

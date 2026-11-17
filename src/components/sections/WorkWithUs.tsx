@@ -1,5 +1,7 @@
+import Image from 'next/image';
+import { illustrations } from '@/lib/images';
 import { ChapterHeading } from '@/components/ui/ChapterHeading';
-import { CoffeeBean, CoffeeBranch, CoffeeMug } from '@/components/ui/coffee-illustrations';
+import { CoffeeBean } from '@/components/ui/coffee-illustrations';
 import { Sparkle, SunBurst } from '@/components/ui/doodles';
 import { WorkWithUsForm } from './WorkWithUsForm';
 
@@ -20,13 +22,13 @@ export function WorkWithUs() {
         <CoffeeBean className="absolute left-[8%] top-[52%] w-5 -rotate-45 text-ceramic-brown/45" />
         <CoffeeBean className="absolute left-[12%] top-[56%] w-4 rotate-[30deg] text-ceramic-brown/45" />
         <Sparkle className="absolute left-[14%] top-[66%] size-4 text-clay-500/70" />
-        <CoffeeBranch className="absolute -bottom-16 left-[6%] w-14 rotate-[-24deg] text-ceramic-brown/35" />
 
-        <CoffeeMug className="absolute right-[10%] top-[22%] w-20 text-ceramic-brown/55" />
+        {/* Caneca na mão: adesivo da cartela oficial */}
+        <Image src={illustrations.adesivoCanecaMao} alt="" sizes="80px" className="absolute right-[10%] top-[20%] w-16 opacity-60 lg:w-20" />
         <CoffeeBean className="absolute right-[12%] top-[46%] w-4 -rotate-12 text-ceramic-brown/45" />
         <CoffeeBean className="absolute right-[15%] top-[44%] w-4 rotate-45 text-ceramic-brown/45" />
         <Sparkle className="absolute right-[11%] top-[56%] size-5 text-clay-500/70" />
-        <CoffeeMug className="absolute bottom-[18%] right-[9%] w-24 text-ceramic-brown/55" />
+        <Image src={illustrations.adesivoCanecaMao} alt="" sizes="96px" className="absolute bottom-[16%] right-[9%] w-20 -scale-x-100 opacity-60 lg:w-24" />
       </div>
 
       <div className="container relative">

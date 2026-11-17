@@ -42,9 +42,9 @@ export function ChapterHeading({
     <header data-parallax="0.04" className={cn('relative max-w-2xl', centered && 'mx-auto text-center', className)}>
       {icon && (
         <div className={cn('mb-5 flex items-center gap-4', centered && 'justify-center')}>
-          <Image src={icon} alt="" className="size-14 object-contain" sizes="56px" />
+          <Image src={icon} alt="" className="illustration-light h-14 w-auto object-contain" sizes="80px" />
           {kicker && (
-            <p className="font-handwriting text-2xl font-semibold leading-tight text-amandia-green">{kicker}</p>
+            <p className="font-handwriting text-2xl font-semibold leading-tight text-heading">{kicker}</p>
           )}
         </div>
       )}
@@ -54,10 +54,13 @@ export function ChapterHeading({
           <Twinkles className="-mt-3" />
         </div>
       )}
-      <p className={cn('flex flex-wrap items-center gap-x-4 gap-y-1', centered && 'justify-center')}>
-        <span className="eyebrow">{eyebrow}</span>
+      {/* Eyebrow longo + nota: a nota quebra para a linha de baixo no mobile em vez de colar na borda */}
+      <p className={cn('flex flex-wrap items-baseline gap-x-3 gap-y-1.5', centered && 'justify-center')}>
+        <span className="eyebrow min-w-0 [overflow-wrap:anywhere]">{eyebrow}</span>
         {note && (
-          <span className="font-handwriting text-xl leading-none text-amandia-pink-ink">{note}</span>
+          <span className="whitespace-nowrap font-handwriting text-lg leading-none text-amandia-pink-ink sm:text-xl">
+            {note}
+          </span>
         )}
       </p>
       <h2 id={id} className="mt-5 text-h2">

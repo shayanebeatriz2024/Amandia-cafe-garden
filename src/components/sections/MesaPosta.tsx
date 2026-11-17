@@ -5,7 +5,6 @@ import { MESA_POSTA_INFO } from '@/data/menu';
 import { illustrations, photos } from '@/lib/images';
 import { buildWhatsAppUrl } from '@/lib/links';
 import { cn } from '@/lib/cn';
-import { CoffeeBranch } from '@/components/ui/coffee-illustrations';
 import { ChapterHeading } from '@/components/ui/ChapterHeading';
 import { PackageMark } from '@/components/ui/PackageMark';
 import { TrackedLink } from '@/components/ui/TrackedLink';
@@ -36,15 +35,13 @@ export async function MesaPosta() {
 
   return (
     <section id="mesa-posta" aria-labelledby="mesa-posta-titulo" className="relative overflow-hidden py-section">
-      <CoffeeBranch className="pointer-events-none absolute -top-10 right-6 hidden w-16 rotate-[16deg] text-ceramic-brown/40 md:block xl:right-14" />
       <div className="container relative">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-6">
             <ChapterHeading
               id="mesa-posta-titulo"
               eyebrow="Mesa Posta & Celebrações"
               icon={illustrations.passaroRamo}
-              kicker="Feito com calma, entregue com afeto."
               badge={{ label: 'Celebrações', tone: 'pink' }}
               note="sob encomenda"
               title={
@@ -61,7 +58,7 @@ export async function MesaPosta() {
               <ul className="mt-4 space-y-3">
                 {MESA_POSTA_INFO.includedInAll.map((included) => (
                   <li key={included} className="flex gap-3">
-                    <DoodleHeart className="mt-1 size-4 text-amandia-pink" />
+                    <DoodleHeart className="mt-1 size-4 text-amandia-offwhite" />
                     {included}
                   </li>
                 ))}
@@ -94,9 +91,9 @@ export async function MesaPosta() {
                   className="object-cover"
                 />
               </figure>
-              <p className="font-handwriting text-2xl font-semibold leading-tight text-amandia-green">
+              <p className="font-handwriting text-2xl font-semibold leading-tight text-heading">
                 O nome de cada convidado, escrito à mão numa folha do jardim
-                <DoodleHeart className="ml-1 inline size-4 text-amandia-pink" />
+                <DoodleHeart className="ml-1 inline size-4 text-amandia-offwhite" />
               </p>
             </div>
           </div>
@@ -119,7 +116,7 @@ export async function MesaPosta() {
                 >
                   <div className="flex items-start justify-between gap-4">
                     {/* "Opção" fica só para leitores de tela (sem repetir em todos os cards) */}
-                    <h3 className="font-display-heavy text-4xl uppercase leading-none text-amandia-green">
+                    <h3 className="font-display-heavy text-4xl uppercase leading-none text-heading">
                       <span className="sr-only">Opção </span>
                       {pkg.name}
                     </h3>
@@ -130,12 +127,12 @@ export async function MesaPosta() {
                   </div>
 
                   {style.tagline && (
-                    <p className="mt-2 font-handwriting text-xl leading-tight text-amandia-green">{style.tagline}</p>
+                    <p className="mt-2 font-handwriting text-xl leading-tight text-heading">{style.tagline}</p>
                   )}
 
                   {price && (
                     <p className="mt-6 flex items-baseline gap-2 border-y border-linen-300 py-4">
-                      <span className="font-display-heavy text-3xl tabular-nums text-amandia-green">
+                      <span className="font-display-heavy text-3xl tabular-nums text-heading">
                         {price}
                       </span>
                       <span className="text-sm text-muted">{pkg.price_label ?? ''}</span>
@@ -145,7 +142,7 @@ export async function MesaPosta() {
                   <ul className="mt-6 space-y-2.5 text-sm leading-snug">
                     {pkg.includes.map((included) => (
                       <li key={included} className="flex gap-2.5">
-                        <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-ceramic-brown/60" aria-hidden="true" />
+                        <DoodleHeart className="mt-1 size-3.5 shrink-0" />
                         {included}
                       </li>
                     ))}
@@ -174,13 +171,13 @@ export async function MesaPosta() {
           aria-labelledby="mesa-posta-info"
           className="mt-10 grid gap-6 rounded-4xl border-2 border-dashed border-amandia-orange/40 bg-surface/60 p-7 md:grid-cols-[auto_1fr] md:gap-10 md:p-10"
         >
-          <h3 id="mesa-posta-info" className="font-handwriting text-3xl font-semibold text-amandia-green">
+          <h3 id="mesa-posta-info" className="font-handwriting text-3xl font-semibold text-heading">
             Informações importantes
           </h3>
           <ul className="grid gap-3 text-sm sm:grid-cols-2">
             {MESA_POSTA_INFO.rules.map((rule) => (
               <li key={rule} className="flex gap-2.5">
-                <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-ceramic-brown/60" aria-hidden="true" />
+                <DoodleHeart className="mt-1 size-3.5 shrink-0" />
                 {rule}
               </li>
             ))}
@@ -189,4 +186,4 @@ export async function MesaPosta() {
       </div>
     </section>
   );
-}
+}

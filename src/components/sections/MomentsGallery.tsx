@@ -55,7 +55,7 @@ export function MomentsGallery() {
                     className={`object-cover ${moment.position ?? 'object-center'}`}
                   />
                 </div>
-                <figcaption className="mt-4 text-center font-handwriting text-2xl font-semibold text-amandia-green">
+                <figcaption className="mt-4 text-center font-handwriting text-2xl font-semibold text-heading">
                   {moment.caption}
                 </figcaption>
               </figure>

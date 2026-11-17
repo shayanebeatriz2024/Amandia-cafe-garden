@@ -1,21 +1,14 @@
 import { getMenuSection } from '@/lib/data/menu';
 import { MENU_EXTRAS, MENU_NOTES } from '@/data/menu';
-import { illustrations, photos, type Photo } from '@/lib/images';
-import { PourOverDoodle } from '@/components/ui/coffee-illustrations';
+import { illustrations } from '@/lib/images';
+import Image from 'next/image';
 import { ChapterHeading } from '@/components/ui/ChapterHeading';
 import { MenuBook, type MenuPage } from './MenuBook';
+import { ITEM_DECOR, PAGE_DECOR } from '@/lib/menu-decor';
 
-// Foto "colada" em cada página, por slug de categoria (as do Supabase podem ganhar image_path na Fase 4).
-const PAGE_PHOTOS: Record<string, Photo> = {
-  'sanduiches-focaccias': photos.focacciaECafe,
-  'cafes-especiais': photos.mesaDecorada,
-  bebidas: photos.bebidas,
-  doces: photos.mesaDeDoces,
-  'graos-para-levar': photos.guriaCafesEspeciais,
-};
-
-// Ordem das páginas do livro: cafés → bebidas → salgados → doces → grãos para levar.
-const PAGE_ORDER = ['cafes-especiais', 'bebidas', 'sanduiches-focaccias', 'doces', 'graos-para-levar'];
+// Ordem das páginas do livro = ordem do cardápio impresso 2026 (PDF): bebidas → cafés → salgados → doces.
+// Grãos para levar não está no impresso e fica por último.
+const PAGE_ORDER = ['bebidas', 'cafes-especiais', 'sanduiches-focaccias', 'doces', 'graos-para-levar'];
 
 /** Cardápio Artesanal & Vitrine — um livro de receitas folheável. */
 export async function MenuChapter() {
@@ -29,13 +22,12 @@ export async function MenuChapter() {
       return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
     })
     .map((category) => {
-      const photo = PAGE_PHOTOS[category.slug];
       return {
         slug: category.slug,
         name: category.name,
         description: category.description,
-        photo: photo ? { src: photo.src, alt: photo.alt } : null,
         extras: MENU_EXTRAS[category.slug] ?? null,
+        decor: PAGE_DECOR[category.slug] ?? null,
         items: category.items.map((item) => ({
           id: item.id,
           name: item.name,
@@ -44,6 +36,7 @@ export async function MenuChapter() {
           price_label: item.price_label,
           is_available: item.is_available,
           note: MENU_NOTES[item.slug] ?? null,
+          decor: ITEM_DECOR[item.slug] ?? null,
         })),
       };
     });
@@ -53,7 +46,14 @@ export async function MenuChapter() {
   return (
     <section id="cardapio" aria-labelledby="cardapio-titulo" className="relative overflow-hidden py-section">
       {/* Sequência de extração no coado (coador, bule e xícara) na área de respiro (decorativo) */}
-      <PourOverDoodle className="pointer-events-none absolute right-8 top-20 hidden w-40 text-ceramic-brown/40 md:block xl:right-[9%] xl:w-48" />
+      {/* Adesivo da cartela oficial: coador sobre a xícara */}
+      <Image
+        src={illustrations.adesivoCoadorXicara}
+        alt=""
+        data-parallax="0.1"
+        sizes="192px"
+        className="pointer-events-none absolute right-8 top-20 hidden w-36 opacity-60 md:block xl:right-[9%] xl:w-44"
+      />
       <div className="container relative">
         <ChapterHeading
           id="cardapio-titulo"

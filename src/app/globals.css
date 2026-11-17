@@ -4,19 +4,36 @@
 
 /* Tokens semânticos em RGB (permitem opacidade: bg-primary/80) — docs/04-design-system.md §2.2 */
 @layer base {
-  :root {
-    --color-bg: 250 246 238; /* #FAF6EE baunilha clara — fundo global (mockup aprovado) */
-    --color-surface: 255 255 255; /* #FFFFFF */
-    --color-text: 46 56 50; /* #2E3832 grafite — 11.3:1 sobre o fundo */
-    --color-heading: 31 58 43; /* #1F3A2B verde floresta profundo — 11.5:1 */
-    --color-muted: 90 99 89; /* #5A6359 legendas — 5.6:1 (o #6B746D cairia p/ 4.35:1) */
-    --color-primary: 47 82 65; /* #2F5241 botão primário */
-    --color-primary-hover: 31 55 40; /* #1F3728 */
-    --color-accent: 240 125 43; /* #F07D2B laranja solar */
-    --color-border: 234 227 210; /* #EAE3D2 */
+  /* Tema global: verde sálvia oficial do logotipo (#577365) com textos claros. */
+  :root,
+  .theme-sage {
+    --color-bg: 87 115 101; /* #577365 — fundo global */
+    --color-surface: 70 93 81; /* #465D51 — superfícies sobre o verde */
+    --color-text: 248 245 240; /* #F8F5F0 off-white — 4.8:1 */
+    --color-heading: 255 255 255; /* #FFFFFF — 5.2:1 */
+    --color-muted: 238 242 238; /* #EEF2EE legendas — 4.6:1 */
+    --color-primary: 248 245 240; /* botão primário claro */
+    --color-primary-hover: 255 241 181; /* #FFF1B5 manteiga */
+    --color-accent: 240 125 43; /* #F07D2B laranja solar (só ornamento) */
+    --color-border: 255 255 255;
 
     /* "only light": impede o modo escuro automático do navegador (Chrome/Edge Auto Dark) de inverter o site */
     color-scheme: only light;
+  }
+
+  /* Ilhas claras dentro do site verde (caderno do cardápio, painel interno, selos claros):
+     voltam à paleta creme original. */
+  .theme-base {
+    --color-bg: 250 246 238; /* #FAF6EE */
+    --color-surface: 255 255 255;
+    --color-text: 46 56 50; /* #2E3832 — 11.3:1 */
+    --color-heading: 31 58 43; /* #1F3A2B — 11.5:1 */
+    --color-muted: 90 99 89; /* #5A6359 — 5.6:1 */
+    --color-primary: 47 82 65; /* #2F5241 */
+    --color-primary-hover: 31 55 40;
+    --color-border: 234 227 210;
+    /* a cor do texto herdada vem calculada do body (claro): recalcula aqui */
+    color: rgb(var(--color-text));
   }
 
   html {
@@ -29,6 +46,12 @@
     html {
       scroll-padding-top: 5.5rem;
     }
+  }
+
+  /* Sem rolagem horizontal no celular: `clip` (e não `hidden`) preserva o position: sticky. */
+  html,
+  body {
+    overflow-x: clip;
   }
 
   body {
@@ -47,9 +70,12 @@
      #C86D3B = 3.4:1 → AA só para texto grande; <em> aparece apenas em h1–h3 (≥ 24px).
      Caveat tem altura-x pequena → compensamos o tamanho. */
   :is(h1, h2, h3) em {
-    @apply font-handwriting font-semibold not-italic text-amandia-terracotta;
+    @apply font-handwriting font-semibold not-italic text-amandia-butter;
     font-size: 1.22em;
     line-height: 0.9;
+  }
+  .theme-base :is(h1, h2, h3) em {
+    @apply text-amandia-terracotta;
   }
 
   p {
@@ -57,7 +83,10 @@
   }
 
   :focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-amandia-green;
+    @apply outline outline-2 outline-offset-2 outline-amandia-butter;
+  }
+  .theme-base :focus-visible {
+    @apply outline-amandia-green;
   }
 
   ::selection {
@@ -83,17 +112,46 @@
 
 @layer components {
   .eyebrow {
-    @apply font-sans text-eyebrow font-bold uppercase text-amandia-green;
+    @apply font-sans text-eyebrow font-bold uppercase text-heading;
+  }
+
+  /* Cores fixas da paleta clara ainda usadas por ilustrações e realces: no verde viram
+     dourado/creme suaves. Não valem dentro das ilhas claras (.theme-base). */
+  :is(.text-amandia-orange-ink, .hover\:text-amandia-orange-ink:hover):not(.theme-base, .theme-base *) {
+    @apply text-clay-300;
+  }
+  .text-amandia-pink-ink:not(.theme-base, .theme-base *) {
+    @apply text-amandia-pink-tint;
+  }
+  /* Traços decorativos (ramos, grãos, coador, xícaras) e molduras terracota → dourado claro */
+  [class*='text-ceramic-brown']:not(.theme-base, .theme-base *) {
+    color: rgb(232 201 166 / 0.5);
+  }
+  [class*='border-ceramic-brown']:not(.theme-base, .theme-base *) {
+    border-color: rgb(232 201 166 / 0.6);
+  }
+  [class*='bg-ceramic-brown']:not(.theme-base, .theme-base *) {
+    background-color: rgb(232 201 166 / 0.6);
+  }
+  :is(.border-linen-300, .border-linen-300\/70):not(.theme-base, .theme-base *) {
+    @apply border-white/20;
+  }
+  /* Ilustrações oficiais em PNG (traço verde-escuro) → creme sobre o verde */
+  .illustration-light:not(.theme-base *) {
+    filter: brightness(0) invert(0.96);
   }
 
   /* Cartão editorial: branco, borda delicada e sombra ultrafina */
   .card {
-    @apply rounded-2xl border border-linen-300 bg-surface shadow-hairline;
+    @apply rounded-2xl border border-white/15 bg-white/[0.07];
+  }
+  .theme-base .card {
+    @apply border-linen-300 bg-surface shadow-hairline;
   }
 
   /* Fio ornamental usado entre capítulos */
   .rule-gold {
-    @apply h-0.5 w-10 rounded-full bg-amandia-orange;
+    @apply h-0.5 w-10 rounded-full bg-clay-300;
   }
 
   /* Faixa de seções do header no mobile/tablet: links diretos que rolam na horizontal */
@@ -106,7 +164,7 @@
 
   /* Alvo de toque de 44px (min-h-11) */
   .section-tab {
-    @apply flex min-h-11 shrink-0 snap-start items-center whitespace-nowrap rounded-full border border-linen-300 bg-surface/80 px-4 text-sm font-semibold text-heading transition-colors hover:border-amandia-orange hover:text-amandia-orange-ink focus-visible:border-amandia-green;
+    @apply flex min-h-11 shrink-0 snap-start items-center whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-4 text-sm font-semibold text-heading transition-colors hover:border-amandia-butter hover:bg-white/15 hover:text-amandia-butter focus-visible:border-amandia-butter;
   }
 
   /* ===== Cardápio em livro (components/sections/MenuBook) ===== */
@@ -169,13 +227,9 @@
     @apply relative z-10 flex flex-col md:flex-row md:items-start md:justify-between md:gap-10;
   }
 
-  /* Polaroid "colada" com fita adesiva — no fluxo do layout, sem cobrir o texto */
-  .notebook-page__photo {
-    @apply relative mx-auto mt-8 w-40 shrink-0 -rotate-3 bg-surface p-2 pb-7 shadow-lift md:mx-0 md:mt-0 md:w-44 md:rotate-3;
-  }
-
-  .notebook-page__tape {
-    @apply absolute -top-3 left-1/2 z-10 h-6 w-20 -translate-x-1/2 -rotate-6 bg-amandia-butter/80 shadow-hairline;
+  /* Desenho do cardápio impresso / cartela de adesivos no topo da página (no lugar da foto) */
+  .notebook-page__art {
+    @apply mx-auto mt-6 flex shrink-0 justify-center md:mx-0 md:mt-0;
   }
 
   /* Lombada: faixa da capa com relevo e dois nervos dourados, parada enquanto a página gira */
@@ -192,7 +246,7 @@
 
   /* Campo de formulário em pílula (Trabalhe Conosco) */
   .form-field {
-    @apply w-full rounded-full border border-linen-300 bg-surface px-6 py-3.5 text-ink shadow-hairline outline-none transition-colors placeholder:text-muted focus:border-amandia-green focus:ring-2 focus:ring-amandia-green/15;
+    @apply w-full rounded-full border border-white/20 bg-linen-50 px-6 py-3.5 text-bark-900 shadow-hairline outline-none transition-colors placeholder:text-bark-500 focus:border-amandia-butter focus:ring-2 focus:ring-amandia-butter/40;
   }
 }
 

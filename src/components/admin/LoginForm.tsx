@@ -12,21 +12,39 @@ export function LoginForm({ configured }: { configured: boolean }) {
   return (
     <form
       action={formAction}
-      className="w-full max-w-sm rounded-lg border border-stone-200/80 bg-white p-8 shadow-sm"
+      className="w-full max-w-sm rounded-lg border border-stone-200/80 bg-white p-6 shadow-sm sm:p-8"
     >
       <span className="inline-flex size-10 items-center justify-center rounded-md bg-stone-100 text-amandia-green">
         <LockKeyhole className="size-5" aria-hidden="true" />
       </span>
       <h1 className="mt-5 font-serif text-xl font-medium text-stone-900">Painel do Amandia</h1>
-      <p className="mt-1 text-sm text-stone-500">Acesso restrito. Digite a senha de administração.</p>
+      <p className="mt-1 text-sm text-stone-500">Acesso restrito. Entre com o e-mail e a senha de administração.</p>
 
       {!configured && (
         <p role="alert" className="mt-5 rounded-md border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-600">
-          O painel ainda não está configurado: defina ADMIN_PASSWORD nas variáveis de ambiente.
+          O painel ainda não está configurado: defina ADMIN_EMAIL e ADMIN_PASSWORD nas variáveis de ambiente.
         </p>
       )}
 
-      <label htmlFor="password" className="mt-6 block text-sm font-medium text-stone-700">
+      <label htmlFor="email" className="mt-6 block text-sm font-medium text-stone-700">
+        E-mail
+      </label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        autoFocus
+        maxLength={254}
+        autoComplete="username"
+        inputMode="email"
+        disabled={!configured || pending}
+        aria-invalid={state.error ? true : undefined}
+        aria-describedby={state.error ? 'login-error' : undefined}
+        className="mt-2 block h-11 w-full rounded-md border border-stone-200 bg-white px-3 text-base text-stone-900 shadow-sm outline-none transition-colors focus:border-amandia-green focus:ring-2 focus:ring-amandia-green/15 disabled:opacity-60"
+      />
+
+      <label htmlFor="password" className="mt-4 block text-sm font-medium text-stone-700">
         Senha
       </label>
       <input
@@ -34,12 +52,12 @@ export function LoginForm({ configured }: { configured: boolean }) {
         name="password"
         type="password"
         required
-        autoFocus
+        maxLength={256}
         autoComplete="current-password"
         disabled={!configured || pending}
         aria-invalid={state.error ? true : undefined}
         aria-describedby={state.error ? 'login-error' : undefined}
-        className="mt-2 block h-10 w-full rounded-md border border-stone-200 bg-white px-3 text-base text-stone-900 shadow-sm outline-none transition-colors focus:border-amandia-green focus:ring-2 focus:ring-amandia-green/15 disabled:opacity-60"
+        className="mt-2 block h-11 w-full rounded-md border border-stone-200 bg-white px-3 text-base text-stone-900 shadow-sm outline-none transition-colors focus:border-amandia-green focus:ring-2 focus:ring-amandia-green/15 disabled:opacity-60"
       />
 
       {state.error && (
@@ -51,7 +69,7 @@ export function LoginForm({ configured }: { configured: boolean }) {
       <button
         type="submit"
         disabled={!configured || pending}
-        className="mt-6 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-amandia-green px-4 text-sm font-medium text-white shadow-sm transition-colors hover:bg-moss-900 disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-amandia-green px-4 text-sm font-medium text-white shadow-sm transition-colors hover:bg-moss-900 disabled:cursor-not-allowed disabled:opacity-60"
       >
         <LogIn className="size-4" aria-hidden="true" />
         {pending ? 'Entrando…' : 'Entrar'}

@@ -7,7 +7,6 @@ import {
   buildWhatsAppUrl,
 } from '@/lib/links';
 import { ChapterHeading } from '@/components/ui/ChapterHeading';
-import { CoffeeBranch } from '@/components/ui/coffee-illustrations';
 import { HoursBadge } from '@/components/ui/HoursBadge';
 import { TrackedLink } from '@/components/ui/TrackedLink';
 import {
@@ -34,7 +33,6 @@ export function ScheduleLocation({ hours }: ScheduleLocationProps) {
 
   return (
     <section id="como-chegar" aria-labelledby="como-chegar-titulo" className="relative overflow-hidden py-section">
-      <CoffeeBranch className="pointer-events-none absolute -top-8 left-4 hidden w-16 -rotate-[18deg] text-ceramic-brown/35 md:block xl:left-10" />
       <div className="container relative">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <ChapterHeading
@@ -55,7 +53,7 @@ export function ScheduleLocation({ hours }: ScheduleLocationProps) {
           <div className="card flex flex-col p-7 md:p-10 lg:col-span-5">
             <dl className="space-y-8">
               <div className="flex gap-4">
-                <dt className="mt-0.5 text-moss-600">
+                <dt className="mt-0.5 text-clay-300">
                   <MapPinIcon />
                   <span className="sr-only">Endereço</span>
                 </dt>
@@ -71,7 +69,7 @@ export function ScheduleLocation({ hours }: ScheduleLocationProps) {
               </div>
 
               <div className="flex gap-4">
-                <dt className="mt-0.5 text-moss-600">
+                <dt className="mt-0.5 text-clay-300">
                   <ClockIcon />
                   <span className="sr-only">Horário de funcionamento</span>
                 </dt>
@@ -93,7 +91,7 @@ export function ScheduleLocation({ hours }: ScheduleLocationProps) {
               </div>
 
               <div className="flex gap-4">
-                <dt className="mt-0.5 text-moss-600">
+                <dt className="mt-0.5 text-clay-300">
                   <PhoneIcon />
                   <span className="sr-only">Contato</span>
                 </dt>

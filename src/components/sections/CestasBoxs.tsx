@@ -18,7 +18,7 @@ export function CestasBoxs() {
         <div className="card relative overflow-hidden border-2 border-ceramic-brown/50 px-6 py-16 md:px-16 md:py-20">
           {/* Ornamentos da identidade */}
           <span
-            className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-brand-teal/90 md:size-64"
+            className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-brand-sage/90 md:size-64"
             aria-hidden="true"
           />
           <CoffeeBranch className="pointer-events-none absolute -left-3 -top-10 hidden w-20 rotate-[-12deg] text-ceramic-brown/45 md:block" />
@@ -32,7 +32,7 @@ export function CestasBoxs() {
                 badge={{ label: 'Curadoria afetiva', tone: 'pink' }}
                 title={
                   <>
-                    Amandia <DoodleHeart className="inline size-7 text-amandia-pink" />{' '}
+                    Amandia <DoodleHeart className="inline size-7 text-amandia-offwhite" />{' '}
                     <em>em momentos especiais</em>
                   </>
                 }
@@ -65,13 +65,7 @@ export function CestasBoxs() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute -left-4 -top-2 size-24 -rotate-6 overflow-hidden rounded-full border-2 border-ceramic-brown bg-surface p-1.5 shadow-hairline">
-                <Image src={photos.aconchego.src} alt="" quality={90} sizes="96px" className="size-full rounded-full object-cover" />
-              </div>
               <Sparkle className="absolute -right-1 top-4 size-7 text-amandia-orange" />
-              <p className="mt-6 text-center font-handwriting text-3xl font-semibold text-amandia-green">
-                Feito com calma, entregue com afeto.
-              </p>
             </div>
           </div>
         </div>

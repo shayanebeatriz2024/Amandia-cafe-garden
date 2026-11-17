@@ -11,7 +11,7 @@ export default function NotFound() {
       <p className="font-serif text-h3 italic text-muted">{siteConfig.guidingPhrase}</p>
       <Link
         href="/"
-        className="inline-flex min-h-12 w-fit items-center rounded-xl bg-primary px-5 text-sm font-medium text-linen-50 transition-colors hover:bg-primary-hover"
+        className="inline-flex min-h-12 w-fit items-center rounded-xl bg-amandia-offwhite px-5 text-sm font-medium text-moss-900 transition-colors hover:bg-amandia-butter"
       >
         Voltar ao início
       </Link>

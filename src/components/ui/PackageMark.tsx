@@ -7,7 +7,7 @@ import type { SVGProps } from 'react';
  */
 type MarkProps = SVGProps<SVGSVGElement> & { variant: string };
 
-const TEAL = '#3C6A63';
+const TEAL = '#F8F5F0'; // traço claro: as marcas ficam sobre os cards translúcidos no verde
 const ORANGE = '#E0943F';
 
 export function PackageMark({ variant, ...props }: MarkProps) {

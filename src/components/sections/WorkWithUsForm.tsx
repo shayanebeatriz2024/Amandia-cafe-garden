@@ -7,8 +7,7 @@ import { RESUME_MAX_BYTES, STRENGTHS, strengthLabel } from '@/lib/careers';
 import { buttonClasses } from '@/components/ui/button-styles';
 import { ChatIcon } from '@/components/ui/icons';
 
-const RESUME_ACCEPT =
-  '.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+const RESUME_ACCEPT = '.pdf,application/pdf';
 
 type Candidate = {
   name: string;
@@ -68,6 +67,11 @@ export function WorkWithUsForm() {
   }
 
   function handleResumeChange(file: File | undefined) {
+    if (file && file.type !== 'application/pdf') {
+      setResumeName(null);
+      setResumeError('Envie o currículo em PDF.');
+      return;
+    }
     if (file && file.size > RESUME_MAX_BYTES) {
       setResumeName(null);
       setResumeError('Arquivo muito grande. Envie um currículo de até 4 MB.');
@@ -131,13 +135,13 @@ export function WorkWithUsForm() {
         className="form-field resize-y rounded-3xl"
       />
 
-      <fieldset className="rounded-3xl border border-linen-300 bg-surface px-6 py-5 shadow-hairline">
+      <fieldset className="rounded-3xl border border-white/15 bg-white/[0.07] px-6 py-5">
         <legend className="px-2 text-sm font-semibold text-heading">Seus pontos fortes</legend>
         <div className="mt-1 flex flex-wrap gap-2">
           {STRENGTHS.map((strength) => (
             <label key={strength.key} className="cursor-pointer">
               <input type="checkbox" name="strengths" value={strength.key} className="peer sr-only" />
-              <span className="inline-flex min-h-9 items-center rounded-full border border-linen-300 bg-linen-100 px-4 text-sm text-ink transition-colors hover:border-amandia-orange peer-checked:border-amandia-green peer-checked:bg-amandia-green peer-checked:text-amandia-cream peer-focus-visible:ring-2 peer-focus-visible:ring-amandia-green/30">
+              <span className="inline-flex min-h-9 items-center rounded-full border border-white/25 bg-white/10 px-4 text-sm text-ink transition-colors hover:border-amandia-butter peer-checked:border-amandia-offwhite peer-checked:bg-amandia-offwhite peer-checked:text-moss-900 peer-focus-visible:ring-2 peer-focus-visible:ring-amandia-butter/60">
                 {strength.label}
               </span>
             </label>
@@ -147,15 +151,15 @@ export function WorkWithUsForm() {
 
       <label
         htmlFor="careers-resume"
-        className="flex cursor-pointer flex-col items-center gap-1 rounded-3xl border-2 border-dashed border-ceramic-brown/40 bg-linen-200/60 px-6 py-6 text-center transition-colors focus-within:border-amandia-green hover:border-amandia-orange hover:bg-amandia-orange-tint/40"
+        className="flex cursor-pointer flex-col items-center gap-1 rounded-3xl border-2 border-dashed border-ceramic-brown/40 bg-white/5 px-6 py-6 text-center transition-colors focus-within:border-amandia-butter hover:border-amandia-butter hover:bg-white/10"
       >
         <span className="inline-flex items-center gap-2 font-semibold text-heading">
           <UploadIcon />
-          {resumeName ?? 'Adicione seu currículo aqui (PDF ou Word)'}
+          {resumeName ?? 'Adicione seu currículo aqui (PDF)'}
         </span>
         <span className={resumeError ? 'text-sm text-amandia-pink-ink' : 'text-sm text-muted'}>
           {resumeError ??
-            (resumeName ? 'Clique para trocar o arquivo.' : 'Opcional. PDF ou Word de até 4 MB.')}
+            (resumeName ? 'Clique para trocar o arquivo.' : 'Opcional. PDF de até 4 MB.')}
         </span>
         <input
           id="careers-resume"
@@ -166,7 +170,7 @@ export function WorkWithUsForm() {
           onChange={(e) => {
             const file = e.currentTarget.files?.[0];
             handleResumeChange(file);
-            if (file && file.size > RESUME_MAX_BYTES) e.currentTarget.value = '';
+            if (file && (file.type !== 'application/pdf' || file.size > RESUME_MAX_BYTES)) e.currentTarget.value = '';
           }}
         />
       </label>
@@ -175,7 +179,7 @@ export function WorkWithUsForm() {
       <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
       <label className="flex items-start gap-3 px-2 text-sm leading-relaxed text-muted">
-        <input type="checkbox" name="consent" required className="mt-1 size-4 shrink-0 accent-amandia-green" />
+        <input type="checkbox" name="consent" required className="mt-1 size-4 shrink-0 accent-amandia-butter" />
         Autorizo o Amandia Café Garden a guardar meus dados e meu currículo para processos seletivos.
       </label>
 

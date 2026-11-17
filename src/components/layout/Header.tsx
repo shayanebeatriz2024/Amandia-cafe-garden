@@ -1,38 +1,35 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/site-config';
 import { buildWhatsAppUrl } from '@/lib/links';
 import { TrackedLink } from '@/components/ui/TrackedLink';
-import { DoodleHeart, Sparkle } from '@/components/ui/doodles';
+import logoBranco from '../../../public/images/identidade/logo-amandia-branco.png';
 import { WhatsAppIcon } from '@/components/ui/icons';
 import { MobileMenu } from './MobileMenu';
 
-/** Logotipo tipográfico: "Amandia" em lettering (Caveat) + "Café Garden" em caixa-alta de impacto. */
-function Wordmark() {
+/** Logotipo oficial (branco, fundo transparente) sobre o verde sálvia da marca. */
+function Logo() {
   return (
-    <span className="flex flex-col leading-none">
-      <span className="relative font-handwriting text-[2.1rem] font-bold text-amandia-green">
-        {siteConfig.shortName}
-        {/* Pontos de luz da identidade (decorativos) */}
-        <DoodleHeart className="absolute -right-3.5 top-1 size-3 text-amandia-pink" />
-        <Sparkle className="absolute -right-6 -top-0.5 size-2.5 text-amandia-orange" />
-      </span>
-      <span className="-mt-1 font-display-heavy text-[0.58rem] uppercase tracking-[0.3em] text-amandia-orange-ink">
-        Café Garden
-      </span>
-    </span>
+    <Image
+      src={logoBranco}
+      alt={siteConfig.name}
+      priority
+      sizes="96px"
+      className="h-16 w-auto"
+    />
   );
 }
 
 /**
- * Header claro e translúcido, fixo ao rolar. Desktop: navegação em linha.
+ * Header no verde sálvia oficial (o mesmo fundo do logotipo), fixo ao rolar. Desktop: navegação em linha.
  * Mobile/tablet: faixa de seções sempre visível + menu completo via <dialog>. Tudo sem JS extra.
  */
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-linen-300/70 bg-bg/80 backdrop-blur-md supports-[backdrop-filter]:bg-bg/65">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-bg">
       <div className="container flex h-header items-center justify-between gap-6">
-        <Link href="/" aria-label={`${siteConfig.name} — início`} className="shrink-0">
-          <Wordmark />
+        <Link href="/" aria-label={`${siteConfig.name} — início`} className="-my-1 shrink-0">
+          <Logo />
         </Link>
 
         <nav aria-label="Principal" className="hidden xl:block">
@@ -41,7 +38,7 @@ export function Header() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block rounded-full px-4 py-2 font-semibold text-heading transition-colors hover:bg-surface hover:text-amandia-orange-ink"
+                  className="block rounded-full px-4 py-2 font-semibold text-heading transition-colors hover:bg-surface hover:text-amandia-butter"
                 >
                   {item.label}
                 </Link>
@@ -58,6 +55,7 @@ export function Header() {
             tracking={{ placement: 'header' }}
             aria-label="Falar com o Amandia no WhatsApp"
             title="WhatsApp"
+            variant="light"
             className="size-12 !px-0"
           >
             <WhatsAppIcon width={24} height={24} />

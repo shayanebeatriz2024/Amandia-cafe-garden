@@ -1,9 +1,7 @@
 import Image from 'next/image';
-import { illustrations, photos, type Photo } from '@/lib/images';
+import { illustrations, letterings, photos, type Photo } from '@/lib/images';
 import { cn } from '@/lib/cn';
-import { CoffeeBranch, PourOverDoodle } from '@/components/ui/coffee-illustrations';
 import { ChapterHeading } from '@/components/ui/ChapterHeading';
-import { DoodleHeart } from '@/components/ui/doodles';
 
 type Detail = {
   photo: Photo;
@@ -24,17 +22,17 @@ const DETAILS: Detail[] = [
     position: 'object-[35%_75%]',
   },
   {
-    photo: photos.mesaDecorada,
+    photo: photos.guriaCafesEspeciais,
     title: 'Cafés especiais',
     note: 'grãos Guria Roasters',
-    position: 'object-center',
+    position: 'object-[50%_62%]',
     offset: 'md:mt-16',
   },
   {
-    photo: photos.boloComFrutas,
+    photo: photos.brownieCappuccino,
     title: 'Confeitaria',
     note: 'brownies, bolos e a Torta Amandia',
-    position: 'object-[60%_50%]',
+    position: 'object-[62%_68%]',
   },
 ];
 
@@ -42,8 +40,13 @@ const DETAILS: Detail[] = [
 export function ProductionChapter() {
   return (
     <section id="producao" aria-labelledby="producao-titulo" className="relative overflow-hidden py-section">
-      <PourOverDoodle className="pointer-events-none absolute left-8 top-24 hidden w-32 -scale-x-100 text-ceramic-brown/35 lg:block xl:left-[8%]" />
-      <CoffeeBranch className="pointer-events-none absolute -bottom-6 right-8 hidden w-16 rotate-[-10deg] text-ceramic-brown/30 lg:block xl:right-[8%]" />
+      <Image
+        src={illustrations.adesivoCoadorXicara}
+        alt=""
+        data-parallax="0.1"
+        sizes="128px"
+        className="pointer-events-none absolute left-8 top-24 hidden w-28 opacity-60 lg:block xl:left-[8%]"
+      />
       <div className="container">
         <ChapterHeading
           id="producao-titulo"
@@ -75,20 +78,24 @@ export function ProductionChapter() {
                   />
                 </div>
               </div>
-              <h3 className="mt-6 font-display-heavy text-lg uppercase tracking-wide text-amandia-green">
+              <h3 className="mt-6 font-display-heavy text-lg uppercase tracking-wide text-heading">
                 {detail.title}
               </h3>
-              <p className="mt-1 font-handwriting text-2xl font-semibold leading-tight text-amandia-green">
+              <p className="mt-1 font-handwriting text-2xl font-semibold leading-tight text-heading">
                 {detail.note}
               </p>
             </li>
           ))}
         </ul>
 
-        {/* Pausa em lettering afetivo */}
-        <p className="mt-16 flex items-center justify-center gap-3 font-handwriting text-5xl font-bold text-amandia-green">
-          Aconchego
-          <DoodleHeart className="size-6 text-amandia-pink" />
+        {/* Pausa em lettering afetivo: "Respire", da cartela oficial (traço creme sobre o verde) */}
+        <p className="mt-16 flex justify-center">
+          <Image
+            src={letterings.respire}
+            alt="Respire"
+            sizes="(min-width: 768px) 224px, 176px"
+            className="illustration-light w-44 md:w-56"
+          />
         </p>
       </div>
     </section>

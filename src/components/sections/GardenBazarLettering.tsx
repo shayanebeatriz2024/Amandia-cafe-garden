@@ -43,24 +43,5 @@ export function GardenBazarLettering({ className, ...props }: SVGProps<SVGSVGEle
   );
 }
 
-/** Estrela de 8 pontas (raios principais longos, diagonais curtas), como nos posts do Bazar. */
-export function EightPointStar({ className, ...props }: SVGProps<SVGSVGElement>) {
-  const points = Array.from({ length: 16 }, (_, i) => {
-    const r = i % 2 === 1 ? 2 : i % 4 === 0 ? 12 : 8;
-    const a = (Math.PI / 8) * i - Math.PI / 2;
-    return `${(12 + r * Math.cos(a)).toFixed(2)},${(12 + r * Math.sin(a)).toFixed(2)}`;
-  }).join(' ');
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-      focusable="false"
-      className={cn('pointer-events-none shrink-0', className)}
-      {...props}
-    >
-      <polygon points={points} />
-    </svg>
-  );
-}
+/** Estrela de 8 pontas dos posts do Bazar: a mesma da cartela de adesivos oficial. */
+export { StickerStar as EightPointStar } from '@/components/ui/doodles';

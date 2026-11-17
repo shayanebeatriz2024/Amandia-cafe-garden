@@ -12,10 +12,10 @@ export function HoursBadge({ className }: { className?: string }) {
       )}
     >
       <span className="relative flex size-2" aria-hidden="true">
-        <span className="absolute inline-flex size-full rounded-full bg-moss-400 opacity-60 motion-safe:animate-ping" />
-        <span className="relative inline-flex size-2 rounded-full bg-moss-600" />
+        <span className="absolute inline-flex size-full rounded-full bg-amandia-butter opacity-60 motion-safe:animate-ping" />
+        <span className="relative inline-flex size-2 rounded-full bg-amandia-butter" />
       </span>
-      <ClockIcon width={16} height={16} className="text-moss-600" />
+      <ClockIcon width={16} height={16} className="text-amandia-butter" />
       <span className="tabular-nums">{siteConfig.hoursSummary}</span>
     </p>
   );

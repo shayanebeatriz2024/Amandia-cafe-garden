@@ -75,45 +75,6 @@ export function CoffeeBranch(props: Props) {
   );
 }
 
-/**
- * Sequência de extração no coado: filtro de papel no coador sobre o bule,
- * gotas caindo e, ao lado, a xícara com vapor no pires.
- */
-export function PourOverDoodle(props: Props) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 176 132"
-      data-parallax="0.1"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.4}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      focusable="false"
-      {...props}
-    >
-      {/* Coador (cone) com o filtro de papel e alça */}
-      <path d="M26 16H94L76 56H44Z" />
-      <path d="M22 16H98" />
-      <path d="M36 18L49 54M84 18L71 54" />
-      <path d="M94 24Q110 26 103 42Q100 48 90 46" />
-      {/* Gotas */}
-      <path d="M60 62V68M60 74V78" />
-      {/* Bule de vidro (server) */}
-      <path d="M44 82H76Q80 82 80 86L84 114Q84 122 76 122H44Q36 122 36 114L40 86Q40 82 44 82Z" />
-      <path d="M38 102H82" />
-      <path d="M80 92Q90 92 90 102Q90 110 82 112" />
-      {/* Xícara ao lado, com vapor e pires */}
-      <path d="M116 92H152V104Q152 118 138 118H130Q116 118 116 104Z" />
-      <path d="M152 96Q162 96 162 103Q162 110 152 110" />
-      <path d="M108 124Q134 130 160 124" />
-      <path d="M128 84Q124 78 128 72Q132 66 128 60M140 84Q136 78 140 72Q144 66 140 60" />
-    </svg>
-  );
-}
-
 /** Grão de café torrado: oval com a fenda central em S. */
 export function CoffeeBean(props: Props) {
   return (

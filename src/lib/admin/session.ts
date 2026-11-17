@@ -2,7 +2,8 @@
  * Sessão do painel /admin — cookie assinado (HMAC-SHA256), sem banco de dados.
  *
  * Formato do token: `<expiraEmMs>.<assinaturaBase64url>`.
- * A chave HMAC é derivada de ADMIN_PASSWORD: trocar a senha invalida todas as sessões abertas.
+ * Credenciais: ADMIN_EMAIL + ADMIN_PASSWORD (somente servidor). A chave HMAC é derivada das
+ * duas: trocar o e-mail ou a senha invalida todas as sessões abertas.
  * Usa apenas Web Crypto, então roda tanto no middleware (Edge) quanto em rotas Node.
  */
 
@@ -11,13 +12,18 @@ export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 dias
 
 const encoder = new TextEncoder();
 
-function getPassword(): string | undefined {
+const normalizeEmail = (email: string) => email.trim().toLowerCase();
+
+/** Segredo de sessão = e-mail normalizado + senha. undefined se faltar qualquer um. */
+function getSessionSecret(): string | undefined {
   const password = process.env.ADMIN_PASSWORD;
-  return password && password.length > 0 ? password : undefined;
+  const email = process.env.ADMIN_EMAIL;
+  if (!password || !email || normalizeEmail(email).length === 0) return undefined;
+  return `${normalizeEmail(email)}:${password}`;
 }
 
 export function isAdminConfigured(): boolean {
-  return getPassword() !== undefined;
+  return getSessionSecret() !== undefined;
 }
 
 function toBase64Url(bytes: ArrayBuffer): string {
@@ -52,23 +58,26 @@ async function sign(payload: string, password: string): Promise<string> {
   return toBase64Url(await crypto.subtle.sign('HMAC', key, encoder.encode(payload)));
 }
 
-/** Confere a senha digitada contra ADMIN_PASSWORD sem vazar tempo de comparação. */
-export async function verifyPassword(candidate: string): Promise<boolean> {
-  const password = getPassword();
-  if (!password) return false;
-  const [a, b] = await Promise.all([sha256(candidate), sha256(password)]);
+/**
+ * Confere e-mail + senha contra ADMIN_EMAIL/ADMIN_PASSWORD sem vazar tempo de comparação
+ * (compara os digests SHA-256 do par inteiro; o e-mail ignora maiúsculas e espaços).
+ */
+export async function verifyCredentials(email: string, password: string): Promise<boolean> {
+  const expected = getSessionSecret();
+  if (!expected) return false;
+  const [a, b] = await Promise.all([sha256(`${normalizeEmail(email)}:${password}`), sha256(expected)]);
   return bytesEqual(a, b);
 }
 
 export async function createSessionToken(): Promise<string> {
-  const password = getPassword();
-  if (!password) throw new Error('ADMIN_PASSWORD não configurada');
+  const password = getSessionSecret();
+  if (!password) throw new Error('ADMIN_EMAIL/ADMIN_PASSWORD não configurados');
   const expiresAt = String(Date.now() + SESSION_TTL_SECONDS * 1000);
   return `${expiresAt}.${await sign(expiresAt, password)}`;
 }
 
 export async function verifySessionToken(token: string | undefined): Promise<boolean> {
-  const password = getPassword();
+  const password = getSessionSecret();
   if (!password || !token) return false;
 
   const [expiresAt, signature, ...rest] = token.split('.');

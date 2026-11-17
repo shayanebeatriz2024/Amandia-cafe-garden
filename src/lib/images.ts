@@ -11,6 +11,7 @@ import mesaDecorada from '../../public/images/mesa-posta/mesa-decorada.jpg';
 import boloComFrutas from '../../public/images/catalogo/bolo-com-frutas.jpg';
 import bebidas from '../../public/images/catalogo/bebidas.jpg';
 import aconchego from '../../public/images/identidade/aconchego.jpg';
+import respire from '../../public/images/identidade/respire.png';
 import gardenMesaBolo from '../../public/images/hero/garden-mesa-bolo.jpg';
 import tortaFloresHero from '../../public/images/cardapio/torta-flores-hero.jpg';
 import gardenOmbrelones from '../../public/images/espaco/garden-ombrelones.jpg';
@@ -26,9 +27,13 @@ import entradaBalancos from '../../public/images/momentos/entrada-balancos.jpg';
 import brownieCappuccino from '../../public/images/momentos/brownie-cappuccino.jpg';
 import iconeVasoSementes from '../../public/images/ilustracoes/icone-vaso-sementes.png';
 import iconeXicaraAfeto from '../../public/images/ilustracoes/icone-xicara-afeto.png';
-import iconePassaroRamo from '../../public/images/ilustracoes/icone-passaro-ramo.png';
 import iconeGardenOmbrelone from '../../public/images/ilustracoes/icone-garden-ombrelone.png';
 import iconeRamoFolhas from '../../public/images/ilustracoes/icone-ramo-folhas.png';
+import adesivoCoadorXicara from '../../public/images/ilustracoes/adesivo-coador-xicara.png';
+import adesivoPassaroRamo from '../../public/images/ilustracoes/adesivo-passaro-ramo.png';
+import adesivoJanela from '../../public/images/ilustracoes/adesivo-janela.png';
+import adesivoCanecaMao from '../../public/images/ilustracoes/adesivo-caneca-mao.png';
+import adesivoCoracaoVaso from '../../public/images/ilustracoes/adesivo-coracao-vaso.png';
 
 export interface Photo {
   src: StaticImageData;
@@ -132,7 +137,23 @@ export const photos = {
 export const illustrations = {
   vasoSementes: iconeVasoSementes,
   xicaraAfeto: iconeXicaraAfeto,
-  passaroRamo: iconePassaroRamo,
+  // Pássaro no ramo: adesivo da cartela oficial (substitui o ícone antigo)
+  passaroRamo: adesivoPassaroRamo,
   gardenOmbrelone: iconeGardenOmbrelone,
   ramoFolhas: iconeRamoFolhas,
+  /** Adesivo da cartela oficial (coador sobre a xícara), já em traço creme para o fundo verde. */
+  adesivoCoadorXicara,
+  /** Adesivos da cartela oficial em traço creme: janela com varal de luzes e caneca na mão. */
+  adesivoJanela,
+  adesivoCanecaMao,
+  adesivoCoracaoVaso,
+} satisfies Record<string, StaticImageData>;
+
+/**
+ * Letterings da cartela de identidade (assets/originais/cartela-adesivos-amandia.pdf),
+ * em PNG transparente no verde sálvia #546A5B. Reservados para uso futuro como marca d'água
+ * sutil (ex.: opacity-[0.06], alt=""); ainda não aplicados no site, por diretriz minimalista.
+ */
+export const letterings = {
+  respire,
 } satisfies Record<string, StaticImageData>;

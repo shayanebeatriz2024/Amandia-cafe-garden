@@ -1,6 +1,6 @@
 import { siteConfig } from '@/lib/site-config';
 import { cn } from '@/lib/cn';
-import { HeartIcon } from './icons';
+import { BrandHeart } from './doodles';
 
 const VARIANTS = {
   hero: { wrapper: 'text-display text-heading', icon: 'hidden' },
@@ -20,7 +20,7 @@ export function GuidingQuote({ variant = 'inline', as: Tag = 'p', className }: G
   const styles = VARIANTS[variant];
   return (
     <Tag className={cn('flex items-start gap-3 font-serif font-medium italic', styles.wrapper, className)}>
-      <HeartIcon className={cn('shrink-0', styles.icon)} width={24} height={24} />
+      <BrandHeart className={cn('size-6 shrink-0', styles.icon)} />
       <span>{siteConfig.guidingPhrase}</span>
     </Tag>
   );

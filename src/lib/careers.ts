@@ -27,11 +27,8 @@ export function strengthLabel(key: string): string {
 
 export const RESUME_MAX_BYTES = 4 * 1024 * 1024; // abaixo do limite de 4,5 MB do corpo na Vercel
 
-export const RESUME_MIME_TYPES = [
-  'application/pdf',
-  'application/msword',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-] as const;
+/** Só PDF: formato que não executa macros e tem assinatura (%PDF-) conferida no servidor. */
+export const RESUME_MIME_TYPES = ['application/pdf'] as const;
 
 /** Celular brasileiro → dígitos com DDI 55, pronto para wa.me. */
 export function toWhatsAppDigits(phone: string): string {

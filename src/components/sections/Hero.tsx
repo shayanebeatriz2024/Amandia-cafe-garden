@@ -27,7 +27,7 @@ export function Hero() {
         label="Vídeo do salão do Amandia: balcão, vitrine de doces e luzes acolhedoras"
         className="absolute inset-0 -z-10 h-full w-full object-cover"
         soundToggle
-        soundButtonClassName="absolute bottom-16 right-5 z-30 flex items-center gap-1.5 rounded-full border border-ceramic-brown/30 bg-amandia-cream/90 px-3 py-1.5 text-xs font-medium text-amandia-green backdrop-blur-sm transition-all hover:bg-amandia-cream md:bottom-20 md:right-8"
+        soundButtonClassName="absolute bottom-4 right-4 z-30 inline-flex min-h-11 min-w-11 items-center gap-2 rounded-full border border-stone-900/15 bg-amandia-cream/95 px-4 text-sm font-medium text-stone-900 shadow-md backdrop-blur-sm transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amandia-cream focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900 md:bottom-8 md:right-8"
       />
 
       {/* Sem nenhuma camada sobre o vídeo: 100% de nitidez e saturação originais.

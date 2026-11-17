@@ -133,7 +133,7 @@ const CATALOG: CatalogCategory[] = [
   {
     slug: 'sanduiches-focaccias',
     name: 'Salgados',
-    description: 'A produção é nossa: focaccia feita aqui.',
+    description: null, // o impresso não tem subtítulo; o selo "a produção é nossa" vem do PAGE_DECOR
     icon: 'wheat',
     section: 'cardapio',
     items: [
@@ -200,7 +200,7 @@ const CATALOG: CatalogCategory[] = [
   {
     slug: 'cafes-especiais',
     name: 'Cafés',
-    description: '“simplesmente” um convite para desacelerar.',
+    description: '“simples_mente” um convite para desacelerar.',
     icon: 'coffee',
     section: 'cardapio',
     items: [
@@ -233,7 +233,7 @@ const CATALOG: CatalogCategory[] = [
   {
     slug: 'bebidas',
     name: 'Bebidas',
-    description: 'Para brindar sem pressa.',
+    description: null, // o impresso não tem subtítulo
     icon: 'coffee',
     section: 'cardapio',
     items: [
@@ -418,7 +418,7 @@ export const MENU_NOTES: Record<string, string> = {
   'capuccino-canela': 'o mais pedido',
   'caipirinha-vodka': 'um clássico da casa',
   'pizza-de-sardinha': 'um clássico da casa',
-  caprese: 'opção vegetariana',
-  'bolos-amandia': 'nossa história começou com esses bolos',
-  'torta-amandia': 'nossa torta autoral',
+  // caprese: o selo "[ opção vegetariana ]" vem do ITEM_DECOR (colado ao nome, como no impresso)
+  'bolos-amandia': 'nossa história começou com esses bolos :)',
+  'torta-amandia': 'curiosidade: essa é nossa torta autoral',
 };
